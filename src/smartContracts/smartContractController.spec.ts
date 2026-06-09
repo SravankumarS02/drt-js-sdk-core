@@ -64,7 +64,7 @@ describe("test smart contract queries controller", () => {
             const controller = new SmartContractController({
                 chainID: this.chainId,
                 networkProvider: this.networkProvider,
-                abi: await loadAbiRegistry("src/testdata/lottery-esdt.abi.json"),
+                abi: await loadAbiRegistry("src/testdata/lottery-dcdt.abi.json"),
             });
 
             const query = controller.createQuery({
@@ -82,7 +82,7 @@ describe("test smart contract queries controller", () => {
             const controller = new SmartContractController({
                 chainID: this.chainId,
                 networkProvider: this.networkProvider,
-                abi: await loadAbiRegistry("src/testdata/lottery-esdt.abi.json"),
+                abi: await loadAbiRegistry("src/testdata/lottery-dcdt.abi.json"),
             });
 
             const query = controller.createQuery({
@@ -174,7 +174,7 @@ describe("test smart contract queries controller", () => {
             );
 
             const query = {
-                contract: Address.newFromBech32("erd1qqqqqqqqqqqqqpgqvc7gdl0p4s97guh498wgz75k8sav6sjfjlwqh679jy"),
+                contract: Address.newFromBech32("drt1qqqqqqqqqqqqqpgqvc7gdl0p4s97guh498wgz75k8sav6sjfjlwq2xfx36"),
                 function: "bar",
                 arguments: [],
             };
@@ -209,7 +209,7 @@ describe("test smart contract queries controller", () => {
             const controller = new SmartContractController({
                 chainID: this.chainId,
                 networkProvider: this.networkProvider,
-                abi: await loadAbiRegistry("src/testdata/lottery-esdt.abi.json"),
+                abi: await loadAbiRegistry("src/testdata/lottery-dcdt.abi.json"),
             });
 
             const response = new SmartContractQueryResponse({
@@ -280,7 +280,7 @@ describe("test smart contract queries controller", () => {
 
         it("should estimate gas using gasLimitEstimator", async function () {
             const alice = await Account.newFromPem(`${getTestWalletsPath()}/alice.pem`);
-            const networkProvider = new ProxyNetworkProvider("https://devnet-gateway.multiversx.com");
+            const networkProvider = new ProxyNetworkProvider("https://devnet-gateway.dharitri.org");
 
             const gasLimitEstimator = new GasLimitEstimator({ networkProvider: networkProvider });
             const controller = new SmartContractController({

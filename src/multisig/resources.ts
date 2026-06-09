@@ -50,7 +50,7 @@ export type DepositExecuteInput = MultisigContractInput & {
     tokenTransfers: TokenTransfer[];
 };
 
-export type ProposeTransferExecuteEsdtInput = MultisigContractInput & {
+export type ProposeTransferExecuteDcdtInput = MultisigContractInput & {
     to: Address;
     tokens: any[];
     optGasLimit?: bigint;
@@ -115,8 +115,8 @@ export enum MultisigActionEnum {
     AddProposer = "AddProposer",
     RemoveUser = "RemoveUser",
     ChangeQuorum = "ChangeQuorum",
-    SendTransferExecuteEgld = "SendTransferExecuteEgld",
-    SendTransferExecuteEsdt = "SendTransferExecuteEsdt",
+    SendTransferExecuteRewa = "SendTransferExecuteRewa",
+    SendTransferExecuteDcdt = "SendTransferExecuteDcdt",
     SendAsyncCall = "SendAsyncCall",
     SCDeployFromSource = "SCDeployFromSource",
     SCUpgradeFromSource = "SCUpgradeFromSource",
@@ -171,7 +171,7 @@ export class ChangeQuorum extends MultisigAction {
     }
 }
 
-export class SendTransferExecuteEgld extends MultisigAction {
+export class SendTransferExecuteRewa extends MultisigAction {
     receiver: Address;
     amount: bigint;
     optionalGasLimit: bigint;
@@ -180,15 +180,15 @@ export class SendTransferExecuteEgld extends MultisigAction {
 
     constructor(data: any) {
         super();
-        this.type = MultisigActionEnum.SendTransferExecuteEgld;
+        this.type = MultisigActionEnum.SendTransferExecuteRewa;
         this.receiver = data.to;
-        this.amount = BigInt(data.egld_amount?.toFixed() ?? 0);
+        this.amount = BigInt(data.rewa_amount?.toFixed() ?? 0);
         this.optionalGasLimit = BigInt(data.opt_gas_limit?.toFixed() ?? 0);
         this.functionName = data.endpoint_name?.toString() ?? "";
         this.arguments = data.arguments ?? [];
     }
 }
-export class SendTransferExecuteEsdt extends MultisigAction {
+export class SendTransferExecuteDcdt extends MultisigAction {
     receiver: Address;
     tokens: TokenTransfer[];
     optionalGasLimit: bigint;
@@ -197,7 +197,7 @@ export class SendTransferExecuteEsdt extends MultisigAction {
 
     constructor(data: any) {
         super();
-        this.type = MultisigActionEnum.SendTransferExecuteEsdt;
+        this.type = MultisigActionEnum.SendTransferExecuteDcdt;
         this.receiver = data.to;
         this.tokens = data.tokens.map(
             (token: { token_identifier: string; nonce: bigint; amount: bigint }) =>
@@ -223,7 +223,7 @@ export class SendAsyncCall extends MultisigAction {
         super();
         this.type = MultisigActionEnum.SendAsyncCall;
         this.receiver = data.to;
-        this.amount = BigInt(data.egld_amount?.toFixed() ?? 0);
+        this.amount = BigInt(data.rewa_amount?.toFixed() ?? 0);
         this.optionalGasLimit = BigInt(data.opt_gas_limit?.toFixed() ?? 0);
         this.functionName = data.endpoint_name.toString();
         this.arguments = data.arguments ?? [];
@@ -272,7 +272,7 @@ export type CallActionData = {
     arguments: Uint8Array[];
 };
 
-export type EsdtTokenPayment = {
+export type DcdtTokenPayment = {
     token_identifier: any;
     token_nonce: any;
     amount: any;

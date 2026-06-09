@@ -7,8 +7,8 @@ import { SmartContractTransactionsOutcomeParser } from "./smartContractTransacti
 
 describe("test smart contract transactions outcome parser", () => {
     it("parses deploy outcome", async function () {
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqpgqqacl85rd0gl2q8wggl8pwcyzcr4fflc5d8ssve45cj");
-        const deployer = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqpgqqacl85rd0gl2q8wggl8pwcyzcr4fflc5d8ss39zhmv");
+        const deployer = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const codeHash = Buffer.from("abba", "hex");
 
         const parser = new SmartContractTransactionsOutcomeParser();
@@ -44,7 +44,7 @@ describe("test smart contract transactions outcome parser", () => {
     });
 
     it("parses deploy outcome (with error)", async function () {
-        const deployer = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const deployer = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
 
         const parser = new SmartContractTransactionsOutcomeParser();
 

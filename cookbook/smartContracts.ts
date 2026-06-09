@@ -42,7 +42,7 @@ import {
     // ```js
     {
         const response = await axios.get(
-            "https://github.com/multiversx/mx-sdk-js-core/raw/main/src/testdata/adder.abi.json",
+            "https://github.com/DharitriCore/drt-js-sdk-core/raw/main/src/testdata/adder.abi.json",
         );
         let abi = Abi.create(response.data);
     }
@@ -274,7 +274,7 @@ import {
         const abi = Abi.create(JSON.parse(jsonContent));
         const controller = entrypoint.createSmartContractController(abi);
 
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
 
         // For deploy arguments, use "TypedValue" objects if you haven't provided an ABI to the factory: // md-as-comment
         let args: any[] = [new U32Value(42)];
@@ -311,7 +311,7 @@ import {
 
     // #### Calling a smart contract and sending tokens (transfer & execute)
     // Additionally, if an endpoint requires a payment when called, we can send tokens to the contract while creating a smart contract call transaction.
-    // Both EGLD and ESDT tokens or a combination of both can be sent. This functionality is supported by both the controller and the factory.
+    // Both REWA and DCDT tokens or a combination of both can be sent. This functionality is supported by both the controller and the factory.
 
     // ```js
     {
@@ -331,7 +331,7 @@ import {
         // get the smart contracts controller
         const controller = entrypoint.createSmartContractController(abi);
 
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
 
         // For deploy arguments, use "TypedValue" objects if you haven't provided an ABI to the factory: // md-as-comment
         let args: any[] = [new U32Value(42)];
@@ -376,7 +376,7 @@ import {
         // get the smart contracts controller
         const controller = entrypoint.createSmartContractTransactionsFactory();
 
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
 
         // For deploy arguments, use "TypedValue" objects if you haven't provided an ABI to the factory: // md-as-comment
         let args: any[] = [new U32Value(42)];
@@ -430,7 +430,7 @@ import {
     // #### Decoding transaction events
     // You might be interested into decoding events emitted by a contract. You can do so by using the `TransactionEventsParser`.
 
-    // Suppose we'd like to decode a `startPerformAction` event emitted by the [multisig](https://github.com/multiversx/mx-contracts-rs/tree/main/contracts/multisig) contract.
+    // Suppose we'd like to decode a `startPerformAction` event emitted by the [multisig](https://github.com/DharitriCore/drt-rs-contracts/tree/main/contracts/multisig) contract.
 
     // First, we load the abi file, then we fetch the transaction, we extract the event from the transaction and then we parse it.
 
@@ -453,14 +453,14 @@ import {
     // #### Encoding / decoding custom types
     // Whenever needed, the contract ABI can be used for manually encoding or decoding custom types.
 
-    // Let's encode a struct called EsdtTokenPayment (of [multisig](https://github.com/multiversx/mx-contracts-rs/tree/main/contracts/multisig) contract) into binary data.
+    // Let's encode a struct called DcdtTokenPayment (of [multisig](https://github.com/DharitriCore/drt-rs-contracts/tree/main/contracts/multisig) contract) into binary data.
     // ```js
     {
         const jsonContent: string = await fs.promises.readFile("../src/testdata/multisig-full.abi.json", {
             encoding: "utf8",
         });
         const abi = Abi.create(JSON.parse(jsonContent));
-        const paymentType = abi.getStruct("EsdtTokenPayment");
+        const paymentType = abi.getStruct("DcdtTokenPayment");
         const codec = new BinaryCodec();
 
         const paymentStruct = new Struct(paymentType, [
@@ -503,7 +503,7 @@ import {
     // ```js
     {
         const entrypoint = new DevnetEntrypoint();
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
         const jsonContent: string = await fs.promises.readFile("../src/testdata/adder.abi.json", {
             encoding: "utf8",
         });
@@ -531,7 +531,7 @@ import {
         const abi = Abi.create(JSON.parse(jsonContent));
 
         // the contract address we'll query
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
 
         // create the controller
         const controller = entrypoint.createSmartContractController(abi);
@@ -577,7 +577,7 @@ import {
         // Or use simple, plain JavaScript values and objects if you have provided an ABI to the factory: // md-as-comment
         args = [42];
 
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8ssd4meug");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq7cmfueefdqkjsnnjnwydw902v8pwjqy3d8sssfv6lk");
 
         const upgradeTransaction = await controller.createTransactionForUpgrade(
             sender,

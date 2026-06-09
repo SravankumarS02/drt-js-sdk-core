@@ -131,7 +131,7 @@ export class MultisigTransactionsFactory extends BaseFactory {
     }
 
     /**
-     * Proposes a transaction that will transfer EGLD and/or execute a function
+     * Proposes a transaction that will transfer REWA and/or execute a function
      */
     async createTransactionForProposeTransferExecute(
         sender: Address,
@@ -164,7 +164,7 @@ export class MultisigTransactionsFactory extends BaseFactory {
     }
 
     /**
-     * Proposes a transaction that will transfer EGLD and/or execute a function
+     * Proposes a transaction that will transfer REWA and/or execute a function
      */
     async createTransactionForDeposit(sender: Address, options: resources.DepositExecuteInput): Promise<Transaction> {
         return await this.smartContractFactory.createTransactionForExecute(sender, {
@@ -178,11 +178,11 @@ export class MultisigTransactionsFactory extends BaseFactory {
     }
 
     /**
-     * Proposes a transaction that will transfer ESDT tokens and/or execute a function
+     * Proposes a transaction that will transfer DCDT tokens and/or execute a function
      */
-    async createTransactionForProposeTransferExecuteEsdt(
+    async createTransactionForProposeTransferExecuteDcdt(
         sender: Address,
-        options: resources.ProposeTransferExecuteEsdtInput,
+        options: resources.ProposeTransferExecuteDcdtInput,
     ): Promise<Transaction> {
         const input = await ProposeTransferExecuteContractInput.newFromTransferExecuteInput({
             multisig: options.multisigContract,
@@ -192,13 +192,13 @@ export class MultisigTransactionsFactory extends BaseFactory {
             abi: options.abi,
         });
 
-        const tokenPayments: resources.EsdtTokenPayment[] = this.mapTokenPayments(options);
+        const tokenPayments: resources.DcdtTokenPayment[] = this.mapTokenPayments(options);
         const dataParts = [
-            "proposeTransferExecuteEsdt",
+            "proposeTransferExecuteDcdt",
             ...this.argSerializer.valuesToStrings(
                 NativeSerializer.nativeToTypedValues(
                     [options.to, tokenPayments, options.optGasLimit, VariadicValue.fromItems(...input.functionCall)],
-                    this.abi.getEndpoint("proposeTransferExecuteEsdt"),
+                    this.abi.getEndpoint("proposeTransferExecuteDcdt"),
                 ),
             ),
         ];
@@ -216,7 +216,7 @@ export class MultisigTransactionsFactory extends BaseFactory {
         return transaction;
     }
 
-    private mapTokenPayments(options: resources.ProposeTransferExecuteEsdtInput): resources.EsdtTokenPayment[] {
+    private mapTokenPayments(options: resources.ProposeTransferExecuteDcdtInput): resources.DcdtTokenPayment[] {
         const tokenComputer = new TokenComputer();
         const tokens = [];
         for (const token of options.tokens) {

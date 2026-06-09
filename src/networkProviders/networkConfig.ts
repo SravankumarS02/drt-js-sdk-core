@@ -69,16 +69,16 @@ export class NetworkConfig {
         let networkConfig = new NetworkConfig();
 
         networkConfig.raw = payload;
-        networkConfig.chainID = String(payload["erd_chain_id"]);
-        networkConfig.gasPerDataByte = BigInt(payload["erd_gas_per_data_byte"]);
-        networkConfig.gasPriceModifier = Number(payload["erd_top_up_factor"]);
-        networkConfig.minGasLimit = BigInt(payload["erd_min_gas_limit"]);
-        networkConfig.minGasPrice = BigInt(payload["erd_min_gas_price"]);
-        networkConfig.extraGasLimitForGuardedTransactions = BigInt(payload["erd_extra_gas_limit_guarded_tx"]);
-        networkConfig.numShards = Number(payload["erd_num_shards_without_meta"]);
-        networkConfig.roundDuration = Number(payload["erd_round_duration"]);
-        networkConfig.numRoundsPerEpoch = Number(payload["erd_rounds_per_epoch"]);
-        networkConfig.genesisTimestamp = Number(payload["erd_start_time"]);
+        networkConfig.chainID = String(payload["drt_chain_id"]);
+        networkConfig.gasPerDataByte = BigInt(payload["drt_gas_per_data_byte"]);
+        networkConfig.gasPriceModifier = Number(payload["drt_top_up_factor"]);
+        networkConfig.minGasLimit = BigInt(payload["drt_min_gas_limit"]);
+        networkConfig.minGasPrice = BigInt(payload["drt_min_gas_price"]);
+        networkConfig.extraGasLimitForGuardedTransactions = BigInt(payload["drt_extra_gas_limit_guarded_tx"]);
+        networkConfig.numShards = Number(payload["drt_num_shards_without_meta"]);
+        networkConfig.roundDuration = Number(payload["drt_round_duration"]);
+        networkConfig.numRoundsPerEpoch = Number(payload["drt_rounds_per_epoch"]);
+        networkConfig.genesisTimestamp = Number(payload["drt_start_time"]);
 
         return networkConfig;
     }

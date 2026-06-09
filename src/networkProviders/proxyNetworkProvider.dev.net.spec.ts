@@ -5,7 +5,7 @@ import { getTestWalletsPath } from "../testutils/utils";
 import { ProxyNetworkProvider } from "./proxyNetworkProvider";
 
 describe("ProxyNetworkProvider Tests", function () {
-    const proxy = new ProxyNetworkProvider("https://devnet-gateway.multiversx.com");
+    const proxy = new ProxyNetworkProvider("https://devnet-gateway.dharitri.org");
 
     it("should fetch network configuration", async () => {
         const result = await proxy.getNetworkConfig();
@@ -48,28 +48,28 @@ describe("ProxyNetworkProvider Tests", function () {
     });
 
     it("should fetch account details", async () => {
-        const address1 = Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        const address1 = Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         const result1 = await proxy.getAccount(address1);
 
-        assert.equal(result1.address.toBech32(), "erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        assert.equal(result1.address.toBech32(), "drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         assert.isUndefined(result1.userName);
         assert.isUndefined(result1.contractOwnerAddress);
 
-        const address2 = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen");
+        const address2 = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d");
         const result2 = await proxy.getAccount(address2);
 
-        assert.equal(result2.address.toBech32(), "erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen");
+        assert.equal(result2.address.toBech32(), "drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d");
         assert.isUndefined(result2.userName);
         assert.equal(
             result2.contractOwnerAddress?.toBech32(),
-            "erd1wzx0tak22f2me4g7wpxfae2w3htfue7khrg28fy6wu8x9hzq05vqm8qhnm",
+            "drt1wzx0tak22f2me4g7wpxfae2w3htfue7khrg28fy6wu8x9hzq05vqxmh5s9",
         );
         assert.isFalse(result2.isContractPayable);
         assert.isTrue(result2.isContractReadable);
     });
 
     it("should fetch account storage", async () => {
-        const address = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen");
+        const address = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d");
         const result = await proxy.getAccountStorage(address);
 
         assert.equal(result.entries.length, 1);
@@ -78,7 +78,7 @@ describe("ProxyNetworkProvider Tests", function () {
     });
 
     it("should fetch a storage entry for an account", async () => {
-        const address = Address.newFromBech32("erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen");
+        const address = Address.newFromBech32("drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d");
         const result = await proxy.getAccountStorageEntry(address, "sum");
 
         assert.equal(result.key, "sum");
@@ -86,7 +86,7 @@ describe("ProxyNetworkProvider Tests", function () {
     });
 
     it("should fetch token of an account", async () => {
-        const address = Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        const address = Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         let token = await proxy.getTokenOfAccount(address, new Token({ identifier: "TEST-ff155e" }));
 
         assert.equal(token.token.identifier, "TEST-ff155e");
@@ -100,7 +100,7 @@ describe("ProxyNetworkProvider Tests", function () {
     });
 
     it("should fetch fungible tokens of an account", async () => {
-        const address = Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        const address = Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         const tokens = await proxy.getFungibleTokensOfAccount(address);
         assert.isTrue(tokens.length > 0);
 
@@ -111,7 +111,7 @@ describe("ProxyNetworkProvider Tests", function () {
     });
 
     it("should fetch non-fungible tokens of an account", async () => {
-        const address = Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        const address = Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         const tokens = await proxy.getNonFungibleTokensOfAccount(address);
         assert.isTrue(tokens.length > 0);
 
@@ -126,7 +126,7 @@ describe("ProxyNetworkProvider Tests", function () {
         const token = await proxy.getDefinitionOfFungibleToken("TEST-ff155e");
 
         assert.equal(token.identifier, "TEST-ff155e");
-        assert.equal(token.owner.toBech32(), "erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
+        assert.equal(token.owner.toBech32(), "drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
         assert.equal(token.decimals, 6);
     });
 
@@ -134,8 +134,8 @@ describe("ProxyNetworkProvider Tests", function () {
         const token = await proxy.getDefinitionOfTokenCollection("NFTEST-ec88b8");
 
         assert.equal(token.collection, "NFTEST-ec88b8");
-        assert.equal(token.owner.toBech32(), "erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl");
-        assert.equal(token.type, "NonFungibleESDT");
+        assert.equal(token.owner.toBech32(), "drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp");
+        assert.equal(token.type, "NonFungibleDCDT");
         assert.equal(token.decimals, 0);
     });
 
@@ -148,7 +148,7 @@ describe("ProxyNetworkProvider Tests", function () {
         assert.equal(transaction.epoch, 348);
         assert.equal(transaction.hash, "9d47c4b4669cbcaa26f5dec79902dd20e55a0aa5f4b92454a74e7dbd0183ad6c");
         assert.isTrue(transaction.status.isCompleted());
-        assert.equal(transaction.sender.toBech32(), "erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2");
+        assert.equal(transaction.sender.toBech32(), "drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5");
         assert.deepEqual(transaction.smartContractResults, []);
     });
 
@@ -183,7 +183,7 @@ describe("ProxyNetworkProvider Tests", function () {
         );
         assert.deepEqual(
             transaction.smartContractResults[0].data,
-            Buffer.from("ESDTSetBurnRoleForAll@544553542d666631353565"),
+            Buffer.from("DCDTSetBurnRoleForAll@544553542d666631353565"),
         );
         assert.equal(Buffer.from(transaction.logs.events[0].topics[0]).toString("hex"), "544553542d666631353565");
         assert.equal(Buffer.from(transaction.logs.events[0].topics[1]).toString("hex"), "");
@@ -193,8 +193,8 @@ describe("ProxyNetworkProvider Tests", function () {
 
     it("should send transaction", async () => {
         const transaction = new Transaction({
-            sender: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
-            receiver: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
+            sender: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
+            receiver: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
             gasLimit: 50000n,
             chainID: "D",
             value: 5000000000000000000n,
@@ -213,8 +213,8 @@ describe("ProxyNetworkProvider Tests", function () {
 
     it("should send transaction  with data", async () => {
         const transaction = new Transaction({
-            sender: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
-            receiver: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
+            sender: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
+            receiver: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
             gasLimit: 70000n,
             chainID: "D",
             nonce: 105n,
@@ -235,8 +235,8 @@ describe("ProxyNetworkProvider Tests", function () {
         const txs = [
             new Transaction({
                 nonce: 103n,
-                receiver: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
-                sender: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
+                receiver: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
+                sender: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
                 gasPrice: 1000000000n,
                 gasLimit: 50000n,
                 chainID: "D",
@@ -249,15 +249,15 @@ describe("ProxyNetworkProvider Tests", function () {
             new Transaction({
                 nonce: 77n,
                 chainID: "D",
-                receiver: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
-                sender: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
+                receiver: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
+                sender: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
                 gasLimit: 50000n,
                 gasPrice: 1000000000n,
             }),
             new Transaction({
                 nonce: 104n,
-                receiver: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
-                sender: Address.newFromBech32("erd1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qazcccl"),
+                receiver: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
+                sender: Address.newFromBech32("drt1487vz5m4zpxjyqw4flwa3xhnkzg4yrr3mkzf5sf0zgt94hjprc8qq70mmp"),
                 gasPrice: 1000000000n,
                 gasLimit: 50000n,
                 chainID: "D",
@@ -298,7 +298,7 @@ describe("ProxyNetworkProvider Tests", function () {
 
         transaction = new Transaction({
             sender: bob.address,
-            receiver: Address.newFromBech32("erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen"),
+            receiver: Address.newFromBech32("drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d"),
             gasLimit: 10000000n,
             chainID: "D",
             gasPrice: 1000000000n,
@@ -312,7 +312,7 @@ describe("ProxyNetworkProvider Tests", function () {
         assert.equal(txOnNetwork.smartContractResults.length, 1);
         assert.equal(
             txOnNetwork.smartContractResults[0].sender.toBech32(),
-            "erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen",
+            "drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d",
         );
         assert.equal(txOnNetwork.smartContractResults[0].receiver.toBech32(), bob.address.toBech32());
         assert.equal(txOnNetwork.smartContractResults[0].data, "@6f6b");
@@ -324,7 +324,7 @@ describe("ProxyNetworkProvider Tests", function () {
         assert.equal(txOnNetwork.smartContractResults.length, 1);
         assert.equal(
             txOnNetwork.smartContractResults[0].sender.toBech32(),
-            "erd1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqez5jen",
+            "drt1qqqqqqqqqqqqqpgq076flgeualrdu5jyyj60snvrh7zu4qrg05vqy7r36d",
         );
         assert.equal(txOnNetwork.smartContractResults[0].receiver.toBech32(), bob.address.toBech32());
         assert.equal(txOnNetwork.smartContractResults[0].data, "@6f6b", "base64");
@@ -363,7 +363,7 @@ describe("ProxyNetworkProvider Tests", function () {
 
         transaction = new Transaction({
             sender: bob.address,
-            receiver: Address.newFromBech32("erd1qqqqqqqqqqqqqpgqhdqz9j3zgpl8fg2z0jzx9n605gwxx4djd8ssruw094"),
+            receiver: Address.newFromBech32("drt1qqqqqqqqqqqqqpgqhdqz9j3zgpl8fg2z0jzx9n605gwxx4djd8ss7qevxt"),
             gasLimit: 5000000n,
             chainID: "D",
             data: new Uint8Array(Buffer.from("dummy@05")),
@@ -385,7 +385,7 @@ describe("ProxyNetworkProvider Tests", function () {
 
     it("should query contract", async () => {
         const query = new SmartContractQuery({
-            contract: Address.newFromBech32("erd1qqqqqqqqqqqqqpgqqy34h7he2ya6qcagqre7ur7cc65vt0mxrc8qnudkr4"),
+            contract: Address.newFromBech32("drt1qqqqqqqqqqqqqpgqqy34h7he2ya6qcagqre7ur7cc65vt0mxrc8qwq64qt"),
             function: "getSum",
             arguments: [],
         });
@@ -395,7 +395,7 @@ describe("ProxyNetworkProvider Tests", function () {
 
     it("should query contract when undefined returnData", async () => {
         const query = new SmartContractQuery({
-            contract: Address.newFromBech32("erd1qqqqqqqqqqqqqpgqf738mcf8f08kuwhn8dvtka5veyad2fqwu00sqnjgln"),
+            contract: Address.newFromBech32("drt1qqqqqqqqqqqqqpgqf738mcf8f08kuwhn8dvtka5veyad2fqwu00sa09tud"),
             function: "getAllProposers",
             arguments: [],
         });

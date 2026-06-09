@@ -2,7 +2,7 @@ import { AddressValue, ArgSerializer, BigUIntValue, BytesValue, StringValue } fr
 import { IGasLimitEstimator } from "../core";
 import { Address } from "../core/address";
 import { BaseFactory } from "../core/baseFactory";
-import { ESDT_CONTRACT_ADDRESS_HEX } from "../core/constants";
+import { DCDT_CONTRACT_ADDRESS_HEX } from "../core/constants";
 import { ErrBadUsage } from "../core/errors";
 import { Logger } from "../core/logger";
 import { Transaction } from "../core/transaction";
@@ -15,20 +15,20 @@ interface IConfig {
     gasLimitPerByte: bigint;
     gasLimitIssue: bigint;
     gasLimitToggleBurnRoleGlobally: bigint;
-    gasLimitEsdtLocalMint: bigint;
-    gasLimitEsdtLocalBurn: bigint;
+    gasLimitDcdtLocalMint: bigint;
+    gasLimitDcdtLocalBurn: bigint;
     gasLimitSetSpecialRole: bigint;
     gasLimitPausing: bigint;
     gasLimitFreezing: bigint;
     gasLimitWiping: bigint;
-    gasLimitEsdtNftCreate: bigint;
-    gasLimitEsdtNftUpdateAttributes: bigint;
-    gasLimitEsdtNftAddQuantity: bigint;
-    gasLimitEsdtNftBurn: bigint;
+    gasLimitDcdtNftCreate: bigint;
+    gasLimitDcdtNftUpdateAttributes: bigint;
+    gasLimitDcdtNftAddQuantity: bigint;
+    gasLimitDcdtNftBurn: bigint;
     gasLimitStorePerByte: bigint;
-    gasLimitEsdtModifyRoyalties: bigint;
-    gasLimitEsdtModifyCreator: bigint;
-    gasLimitEsdtMetadataUpdate: bigint;
+    gasLimitDcdtModifyRoyalties: bigint;
+    gasLimitDcdtModifyCreator: bigint;
+    gasLimitDcdtMetadataUpdate: bigint;
     gasLimitSetNewUris: bigint;
     gasLimitNftMetadataRecreate: bigint;
     gasLimitNftChangeToDynamic: bigint;
@@ -38,14 +38,14 @@ interface IConfig {
 }
 
 /**
- * Use this class to create token management transactions like issuing ESDTs, creating NFTs, setting roles, etc.
+ * Use this class to create token management transactions like issuing DCDTs, creating NFTs, setting roles, etc.
  */
 export class TokenManagementTransactionsFactory extends BaseFactory {
     private readonly config: IConfig;
     private readonly argSerializer: ArgSerializer;
     private readonly trueAsString: string;
     private readonly falseAsString: string;
-    private readonly esdtContractAddress: Address;
+    private readonly dcdtContractAddress: Address;
 
     constructor(options: { config: IConfig; gasLimitEstimator?: IGasLimitEstimator }) {
         super({ config: options.config, gasLimitEstimator: options.gasLimitEstimator });
@@ -53,7 +53,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         this.argSerializer = new ArgSerializer();
         this.trueAsString = "true";
         this.falseAsString = "false";
-        this.esdtContractAddress = Address.newFromHex(ESDT_CONTRACT_ADDRESS_HEX, this.config.addressHrp);
+        this.dcdtContractAddress = Address.newFromHex(DCDT_CONTRACT_ADDRESS_HEX, this.config.addressHrp);
     }
 
     async createTransactionForIssuingFungible(
@@ -85,7 +85,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -126,7 +126,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -167,7 +167,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -179,9 +179,9 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         return transaction;
     }
 
-    async createTransactionForRegisteringMetaESDT(
+    async createTransactionForRegisteringMetaDCDT(
         sender: Address,
-        options: resources.RegisterMetaESDTInput,
+        options: resources.RegisterMetaDCDTInput,
     ): Promise<Transaction> {
         this.notifyAboutUnsettingBurnRoleGlobally();
 
@@ -205,11 +205,11 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
             new StringValue(this.boolToString(options.canAddSpecialRoles)),
         ];
 
-        const dataParts = ["registerMetaESDT", ...this.argSerializer.valuesToStrings(args)];
+        const dataParts = ["registerMetaDCDT", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -239,7 +239,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -262,7 +262,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -284,7 +284,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -301,15 +301,15 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.addRoleLocalMint ? args.push(new StringValue("ESDTRoleLocalMint")) : 0;
-        options.addRoleLocalBurn ? args.push(new StringValue("ESDTRoleLocalBurn")) : 0;
-        options.addRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
+        options.addRoleLocalMint ? args.push(new StringValue("DCDTRoleLocalMint")) : 0;
+        options.addRoleLocalBurn ? args.push(new StringValue("DCDTRoleLocalBurn")) : 0;
+        options.addRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
 
         const dataParts = ["setSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -326,15 +326,15 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.removeRoleLocalMint ? args.push(new StringValue("ESDTRoleLocalMint")) : 0;
-        options.removeRoleESDTTransferRole ? args.push(new StringValue("ESDTRoleLocalBurn")) : 0;
-        options.removeRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
+        options.removeRoleLocalMint ? args.push(new StringValue("DCDTRoleLocalMint")) : 0;
+        options.removeRoleDCDTTransferRole ? args.push(new StringValue("DCDTRoleLocalBurn")) : 0;
+        options.removeRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
 
         const dataParts = ["unSetSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -351,21 +351,21 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.addRoleNFTCreate ? args.push(new StringValue("ESDTRoleNFTCreate")) : 0;
-        options.addRoleNFTBurn ? args.push(new StringValue("ESDTRoleNFTBurn")) : 0;
-        options.addRoleNFTAddQuantity ? args.push(new StringValue("ESDTRoleNFTAddQuantity")) : 0;
-        options.addRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
-        options.addRoleNFTUpdate ? args.push(new StringValue("ESDTRoleNFTUpdate")) : 0;
-        options.addRoleESDTModifyRoyalties ? args.push(new StringValue("ESDTRoleModifyRoyalties")) : 0;
-        options.addRoleESDTSetNewUri ? args.push(new StringValue("ESDTRoleSetNewURI")) : 0;
-        options.addRoleESDTModifyCreator ? args.push(new StringValue("ESDTRoleModifyCreator")) : 0;
-        options.addRoleNFTRecreate ? args.push(new StringValue("ESDTRoleNFTRecreate")) : 0;
+        options.addRoleNFTCreate ? args.push(new StringValue("DCDTRoleNFTCreate")) : 0;
+        options.addRoleNFTBurn ? args.push(new StringValue("DCDTRoleNFTBurn")) : 0;
+        options.addRoleNFTAddQuantity ? args.push(new StringValue("DCDTRoleNFTAddQuantity")) : 0;
+        options.addRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
+        options.addRoleNFTUpdate ? args.push(new StringValue("DCDTRoleNFTUpdate")) : 0;
+        options.addRoleDCDTModifyRoyalties ? args.push(new StringValue("DCDTRoleModifyRoyalties")) : 0;
+        options.addRoleDCDTSetNewUri ? args.push(new StringValue("DCDTRoleSetNewURI")) : 0;
+        options.addRoleDCDTModifyCreator ? args.push(new StringValue("DCDTRoleModifyCreator")) : 0;
+        options.addRoleNFTRecreate ? args.push(new StringValue("DCDTRoleNFTRecreate")) : 0;
 
         const dataParts = ["setSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -382,20 +382,20 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.removeRoleNFTBurn ? args.push(new StringValue("ESDTRoleNFTBurn")) : 0;
-        options.removeRoleNFTAddQuantity ? args.push(new StringValue("ESDTRoleNFTAddQuantity")) : 0;
-        options.removeRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
-        options.removeRoleNFTUpdate ? args.push(new StringValue("ESDTRoleNFTUpdate")) : 0;
-        options.removeRoleESDTModifyRoyalties ? args.push(new StringValue("ESDTRoleModifyRoyalties")) : 0;
-        options.removeRoleESDTSetNewUri ? args.push(new StringValue("ESDTRoleSetNewURI")) : 0;
-        options.removeRoleESDTModifyCreator ? args.push(new StringValue("ESDTRoleModifyCreator")) : 0;
-        options.removeRoleNFTRecreate ? args.push(new StringValue("ESDTRoleNFTRecreate")) : 0;
+        options.removeRoleNFTBurn ? args.push(new StringValue("DCDTRoleNFTBurn")) : 0;
+        options.removeRoleNFTAddQuantity ? args.push(new StringValue("DCDTRoleNFTAddQuantity")) : 0;
+        options.removeRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
+        options.removeRoleNFTUpdate ? args.push(new StringValue("DCDTRoleNFTUpdate")) : 0;
+        options.removeRoleDCDTModifyRoyalties ? args.push(new StringValue("DCDTRoleModifyRoyalties")) : 0;
+        options.removeRoleDCDTSetNewUri ? args.push(new StringValue("DCDTRoleSetNewURI")) : 0;
+        options.removeRoleDCDTModifyCreator ? args.push(new StringValue("DCDTRoleModifyCreator")) : 0;
+        options.removeRoleNFTRecreate ? args.push(new StringValue("DCDTRoleNFTRecreate")) : 0;
 
         const dataParts = ["unSetSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -406,14 +406,14 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         return transaction;
     }
 
-    async createTransactionForSettingSpecialRoleOnMetaESDT(
+    async createTransactionForSettingSpecialRoleOnMetaDCDT(
         sender: Address,
         options: resources.SemiFungibleSpecialRoleInput,
     ): Promise<Transaction> {
         return await this.createTransactionForSettingSpecialRoleOnSemiFungibleToken(sender, options);
     }
 
-    async createTransactionForUnsettingSpecialRoleOnMetaESDT(
+    async createTransactionForUnsettingSpecialRoleOnMetaDCDT(
         sender: Address,
         options: resources.UnsetSemiFungibleSpecialRoleInput,
     ): Promise<Transaction> {
@@ -426,21 +426,21 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.addRoleNFTCreate ? args.push(new StringValue("ESDTRoleNFTCreate")) : 0;
-        options.addRoleNFTBurn ? args.push(new StringValue("ESDTRoleNFTBurn")) : 0;
-        options.addRoleNFTUpdateAttributes ? args.push(new StringValue("ESDTRoleNFTUpdateAttributes")) : 0;
-        options.addRoleNFTAddURI ? args.push(new StringValue("ESDTRoleNFTAddURI")) : 0;
-        options.addRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
-        options.addRoleESDTModifyCreator ? args.push(new StringValue("ESDTRoleModifyCreator")) : 0;
-        options.addRoleNFTRecreate ? args.push(new StringValue("ESDTRoleNFTRecreate")) : 0;
-        options.addRoleESDTSetNewURI ? args.push(new StringValue("ESDTRoleSetNewURI")) : 0;
-        options.addRoleESDTModifyRoyalties ? args.push(new StringValue("ESDTRoleModifyRoyalties")) : 0;
+        options.addRoleNFTCreate ? args.push(new StringValue("DCDTRoleNFTCreate")) : 0;
+        options.addRoleNFTBurn ? args.push(new StringValue("DCDTRoleNFTBurn")) : 0;
+        options.addRoleNFTUpdateAttributes ? args.push(new StringValue("DCDTRoleNFTUpdateAttributes")) : 0;
+        options.addRoleNFTAddURI ? args.push(new StringValue("DCDTRoleNFTAddURI")) : 0;
+        options.addRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
+        options.addRoleDCDTModifyCreator ? args.push(new StringValue("DCDTRoleModifyCreator")) : 0;
+        options.addRoleNFTRecreate ? args.push(new StringValue("DCDTRoleNFTRecreate")) : 0;
+        options.addRoleDCDTSetNewURI ? args.push(new StringValue("DCDTRoleSetNewURI")) : 0;
+        options.addRoleDCDTModifyRoyalties ? args.push(new StringValue("DCDTRoleModifyRoyalties")) : 0;
 
         const dataParts = ["setSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -457,20 +457,20 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
     ): Promise<Transaction> {
         const args = [new StringValue(options.tokenIdentifier), new AddressValue(options.user)];
 
-        options.removeRoleNFTBurn ? args.push(new StringValue("ESDTRoleNFTBurn")) : 0;
-        options.removeRoleNFTUpdateAttributes ? args.push(new StringValue("ESDTRoleNFTUpdateAttributes")) : 0;
-        options.removeRoleNFTAddURI ? args.push(new StringValue("ESDTRoleNFTAddURI")) : 0;
-        options.removeRoleESDTTransferRole ? args.push(new StringValue("ESDTTransferRole")) : 0;
-        options.removeRoleESDTModifyCreator ? args.push(new StringValue("ESDTRoleModifyCreator")) : 0;
-        options.removeRoleNFTRecreate ? args.push(new StringValue("ESDTRoleNFTRecreate")) : 0;
-        options.removeRoleESDTSetNewURI ? args.push(new StringValue("ESDTRoleSetNewURI")) : 0;
-        options.removeRoleESDTModifyRoyalties ? args.push(new StringValue("ESDTRoleModifyRoyalties")) : 0;
+        options.removeRoleNFTBurn ? args.push(new StringValue("DCDTRoleNFTBurn")) : 0;
+        options.removeRoleNFTUpdateAttributes ? args.push(new StringValue("DCDTRoleNFTUpdateAttributes")) : 0;
+        options.removeRoleNFTAddURI ? args.push(new StringValue("DCDTRoleNFTAddURI")) : 0;
+        options.removeRoleDCDTTransferRole ? args.push(new StringValue("DCDTTransferRole")) : 0;
+        options.removeRoleDCDTModifyCreator ? args.push(new StringValue("DCDTRoleModifyCreator")) : 0;
+        options.removeRoleNFTRecreate ? args.push(new StringValue("DCDTRoleNFTRecreate")) : 0;
+        options.removeRoleDCDTSetNewURI ? args.push(new StringValue("DCDTRoleSetNewURI")) : 0;
+        options.removeRoleDCDTModifyRoyalties ? args.push(new StringValue("DCDTRoleModifyRoyalties")) : 0;
 
         const dataParts = ["unSetSpecialRole", ...this.argSerializer.valuesToStrings(args)];
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -483,7 +483,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
     async createTransactionForCreatingNFT(sender: Address, options: resources.MintInput): Promise<Transaction> {
         const dataParts = [
-            "ESDTNFTCreate",
+            "DCDTNFTCreate",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.initialQuantity ?? 1n),
@@ -507,7 +507,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtNftCreate + storageGasLimit);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtNftCreate + storageGasLimit);
 
         return transaction;
     }
@@ -615,7 +615,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
     async createTransactionForLocalMint(sender: Address, options: resources.LocalMintInput): Promise<Transaction> {
         const dataParts = [
-            "ESDTLocalMint",
+            "DCDTLocalMint",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.supplyToMint),
@@ -630,14 +630,14 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtLocalMint);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtLocalMint);
 
         return transaction;
     }
 
     async createTransactionForLocalBurning(sender: Address, options: resources.LocalBurnInput): Promise<Transaction> {
         const dataParts = [
-            "ESDTLocalBurn",
+            "DCDTLocalBurn",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.supplyToBurn),
@@ -652,7 +652,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtLocalBurn);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtLocalBurn);
 
         return transaction;
     }
@@ -662,7 +662,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.UpdateAttributesInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTNFTUpdateAttributes",
+            "DCDTNFTUpdateAttributes",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -678,7 +678,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtNftUpdateAttributes);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtNftUpdateAttributes);
 
         return transaction;
     }
@@ -688,7 +688,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.UpdateQuantityInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTNFTAddQuantity",
+            "DCDTNFTAddQuantity",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -704,7 +704,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtNftAddQuantity);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtNftAddQuantity);
 
         return transaction;
     }
@@ -714,7 +714,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.UpdateQuantityInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTNFTBurn",
+            "DCDTNFTBurn",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -730,7 +730,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtNftBurn);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtNftBurn);
 
         return transaction;
     }
@@ -740,7 +740,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.ModifyRoyaltiesInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTModifyRoyalties",
+            "DCDTModifyRoyalties",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -756,7 +756,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtModifyRoyalties);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtModifyRoyalties);
 
         return transaction;
     }
@@ -767,7 +767,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         }
 
         const dataParts = [
-            "ESDTSetNewURIs",
+            "DCDTSetNewURIs",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -793,7 +793,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.ModifyCreatorInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTModifyCreator",
+            "DCDTModifyCreator",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -808,7 +808,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtModifyCreator);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtModifyCreator);
 
         return transaction;
     }
@@ -818,7 +818,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.ManageMetadataInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTMetaDataUpdate",
+            "DCDTMetaDataUpdate",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -838,7 +838,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         });
 
         this.setTransactionPayload(transaction, dataParts);
-        await this.setGasLimit(transaction, undefined, this.config.gasLimitEsdtMetadataUpdate);
+        await this.setGasLimit(transaction, undefined, this.config.gasLimitDcdtMetadataUpdate);
 
         return transaction;
     }
@@ -848,7 +848,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
         options: resources.ManageMetadataInput,
     ): Promise<Transaction> {
         const dataParts = [
-            "ESDTMetaDataRecreate",
+            "DCDTMetaDataRecreate",
             ...this.argSerializer.valuesToStrings([
                 new StringValue(options.tokenIdentifier),
                 new BigUIntValue(options.tokenNonce),
@@ -884,7 +884,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -906,7 +906,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
         });
@@ -932,7 +932,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -959,7 +959,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 
         const transaction = new Transaction({
             sender: sender,
-            receiver: this.esdtContractAddress,
+            receiver: this.dcdtContractAddress,
             chainID: this.config.chainID,
             gasLimit: 0n,
             value: this.config.issueCost,
@@ -976,7 +976,7 @@ export class TokenManagementTransactionsFactory extends BaseFactory {
 ==========
 IMPORTANT!
 ==========
-You are about to issue (register) a new token. This will set the role "ESDTRoleBurnForAll" (globally).
+You are about to issue (register) a new token. This will set the role "DCDTRoleBurnForAll" (globally).
 Once the token is registered, you can unset this role by calling "unsetBurnRoleGlobally" (in a separate transaction).`);
     }
 

@@ -1,27 +1,27 @@
 import { IGasLimitEstimator } from "../core";
 import { Address } from "../core/address";
 import { BaseFactory } from "../core/baseFactory";
-import { EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER } from "../core/constants";
+import { REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER } from "../core/constants";
 import { ErrBadUsage } from "../core/errors";
 import { TokenComputer, TokenTransfer } from "../core/tokens";
 import { TokenTransfersDataBuilder } from "../core/tokenTransfersDataBuilder";
 import { Transaction } from "../core/transaction";
 import * as resources from "./resources";
 
-const ADDITIONAL_GAS_FOR_ESDT_TRANSFER = 100000;
-const ADDITIONAL_GAS_FOR_ESDT_NFT_TRANSFER = 800000;
+const ADDITIONAL_GAS_FOR_DCDT_TRANSFER = 100000;
+const ADDITIONAL_GAS_FOR_DCDT_NFT_TRANSFER = 800000;
 
 interface IConfig {
     chainID: string;
     minGasLimit: bigint;
     gasLimitPerByte: bigint;
-    gasLimitESDTTransfer: bigint;
-    gasLimitESDTNFTTransfer: bigint;
-    gasLimitMultiESDTNFTTransfer: bigint;
+    gasLimitDCDTTransfer: bigint;
+    gasLimitDCDTNFTTransfer: bigint;
+    gasLimitMultiDCDTNFTTransfer: bigint;
 }
 
 /**
- * Use this class to create transactions for native token transfers (EGLD) or custom tokens transfers (ESDT/NTF/MetaESDT).
+ * Use this class to create transactions for native token transfers (REWA) or custom tokens transfers (DCDT/NTF/MetaDCDT).
  */
 export class TransferTransactionsFactory extends BaseFactory {
     private readonly config: IConfig;
@@ -55,7 +55,7 @@ export class TransferTransactionsFactory extends BaseFactory {
         return transaction;
     }
 
-    async createTransactionForESDTTokenTransfer(
+    async createTransactionForDCDTTokenTransfer(
         sender: Address,
         options: resources.CustomTokenTransferInput,
     ): Promise<Transaction> {
@@ -66,10 +66,10 @@ export class TransferTransactionsFactory extends BaseFactory {
         }
 
         if (numberOfTransfers === 1) {
-            return await this.createSingleESDTTransferTransaction(sender, options);
+            return await this.createSingleDCDTTransferTransaction(sender, options);
         }
 
-        const { dataParts, extraGasForTransfer } = this.buildMultiESDTNFTTransferData(
+        const { dataParts, extraGasForTransfer } = this.buildMultiDCDTNFTTransferData(
             options.tokenTransfers,
             options.receiver,
         );
@@ -96,7 +96,7 @@ export class TransferTransactionsFactory extends BaseFactory {
         const numberOfTokens = tokenTransfers.length;
 
         if (numberOfTokens && options.data?.length) {
-            throw new ErrBadUsage("Can't set data field when sending esdt tokens");
+            throw new ErrBadUsage("Can't set data field when sending dcdt tokens");
         }
 
         if ((nativeAmount && numberOfTokens === 0) || options.data) {
@@ -112,13 +112,13 @@ export class TransferTransactionsFactory extends BaseFactory {
             tokenTransfers.push(nativeTransfer);
         }
 
-        return await this.createTransactionForESDTTokenTransfer(sender, {
+        return await this.createTransactionForDCDTTokenTransfer(sender, {
             receiver: options.receiver,
             tokenTransfers: tokenTransfers,
         });
     }
 
-    private async createSingleESDTTransferTransaction(
+    private async createSingleDCDTTransferTransaction(
         sender: Address,
         options: {
             receiver: Address;
@@ -150,39 +150,39 @@ export class TransferTransactionsFactory extends BaseFactory {
         let receiver = options.receiver;
 
         if (this.tokenComputer!.isFungible(transfer.token)) {
-            if (transfer.token.identifier === EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER) {
-                ({ dataParts, extraGasForTransfer } = this.buildMultiESDTNFTTransferData([transfer], receiver));
+            if (transfer.token.identifier === REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER) {
+                ({ dataParts, extraGasForTransfer } = this.buildMultiDCDTNFTTransferData([transfer], receiver));
                 receiver = options.sender;
             } else {
-                ({ dataParts, extraGasForTransfer } = this.buildESDTTransferData(transfer));
+                ({ dataParts, extraGasForTransfer } = this.buildDCDTTransferData(transfer));
             }
         } else {
-            ({ dataParts, extraGasForTransfer } = this.buildSingleESDTNFTTransferData(transfer, receiver));
+            ({ dataParts, extraGasForTransfer } = this.buildSingleDCDTNFTTransferData(transfer, receiver));
             receiver = options.sender; // Override receiver for non-fungible tokens
         }
         return { dataParts, extraGasForTransfer, receiver };
     }
 
-    private buildMultiESDTNFTTransferData(transfer: TokenTransfer[], receiver: Address) {
+    private buildMultiDCDTNFTTransferData(transfer: TokenTransfer[], receiver: Address) {
         return {
-            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForMultiESDTNFTTransfer(receiver, transfer),
+            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForMultiDCDTNFTTransfer(receiver, transfer),
             extraGasForTransfer:
-                this.config!.gasLimitMultiESDTNFTTransfer * BigInt(transfer.length) +
-                BigInt(ADDITIONAL_GAS_FOR_ESDT_NFT_TRANSFER),
+                this.config!.gasLimitMultiDCDTNFTTransfer * BigInt(transfer.length) +
+                BigInt(ADDITIONAL_GAS_FOR_DCDT_NFT_TRANSFER),
         };
     }
 
-    private buildESDTTransferData(transfer: TokenTransfer) {
+    private buildDCDTTransferData(transfer: TokenTransfer) {
         return {
-            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForESDTTransfer(transfer),
-            extraGasForTransfer: this.config!.gasLimitESDTTransfer + BigInt(ADDITIONAL_GAS_FOR_ESDT_TRANSFER),
+            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForDCDTTransfer(transfer),
+            extraGasForTransfer: this.config!.gasLimitDCDTTransfer + BigInt(ADDITIONAL_GAS_FOR_DCDT_TRANSFER),
         };
     }
 
-    private buildSingleESDTNFTTransferData(transfer: TokenTransfer, receiver: Address) {
+    private buildSingleDCDTNFTTransferData(transfer: TokenTransfer, receiver: Address) {
         return {
-            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForSingleESDTNFTTransfer(transfer, receiver),
-            extraGasForTransfer: this.config!.gasLimitESDTNFTTransfer + BigInt(ADDITIONAL_GAS_FOR_ESDT_NFT_TRANSFER),
+            dataParts: this.tokenTransfersDataBuilder!.buildDataPartsForSingleDCDTNFTTransfer(transfer, receiver),
+            extraGasForTransfer: this.config!.gasLimitDCDTNFTTransfer + BigInt(ADDITIONAL_GAS_FOR_DCDT_NFT_TRANSFER),
         };
     }
 }

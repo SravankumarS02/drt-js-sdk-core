@@ -1,5 +1,5 @@
 /**
- * A library for interacting with the MultiversX blockchain (in general) and Smart Contracts (in particular).
+ * A library for interacting with the DharitrI blockchain (in general) and Smart Contracts (in particular).
  *
  * @packageDocumentation
  */

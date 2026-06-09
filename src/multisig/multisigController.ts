@@ -477,7 +477,7 @@ export class MultisigController extends BaseController {
     }
 
     /**
-     * Creates a transaction for proposing to transfer EGLD and execute a smart contract call
+     * Creates a transaction for proposing to transfer REWA and execute a smart contract call
      */
     async createTransactionForProposeTransferExecute(
         sender: IAccount,
@@ -496,15 +496,15 @@ export class MultisigController extends BaseController {
     }
 
     /**
-     * Creates a transaction for proposing to transfer ESDT tokens and execute a smart contract call
+     * Creates a transaction for proposing to transfer DCDT tokens and execute a smart contract call
      */
-    async createTransactionForProposeTransferExecuteEsdt(
+    async createTransactionForProposeTransferExecuteDcdt(
         sender: IAccount,
         nonce: bigint,
-        options: resources.ProposeTransferExecuteEsdtInput & BaseControllerInput,
+        options: resources.ProposeTransferExecuteDcdtInput & BaseControllerInput,
     ): Promise<Transaction> {
         options.gasLimit = options.gasLimit ? options.gasLimit : 0n;
-        const transaction = await this.multisigFactory.createTransactionForProposeTransferExecuteEsdt(
+        const transaction = await this.multisigFactory.createTransactionForProposeTransferExecuteDcdt(
             sender.address,
             options,
         );
@@ -664,10 +664,10 @@ export class MultisigController extends BaseController {
                 return new resources.RemoveUser(fields[0]);
             case resources.MultisigActionEnum.ChangeQuorum:
                 return new resources.ChangeQuorum(fields[0]);
-            case resources.MultisigActionEnum.SendTransferExecuteEgld:
-                return new resources.SendTransferExecuteEgld(fields[0]);
-            case resources.MultisigActionEnum.SendTransferExecuteEsdt:
-                return new resources.SendTransferExecuteEsdt(fields[0]);
+            case resources.MultisigActionEnum.SendTransferExecuteRewa:
+                return new resources.SendTransferExecuteRewa(fields[0]);
+            case resources.MultisigActionEnum.SendTransferExecuteDcdt:
+                return new resources.SendTransferExecuteDcdt(fields[0]);
             case resources.MultisigActionEnum.SendAsyncCall:
                 return new resources.SendAsyncCall(fields[0]);
             case resources.MultisigActionEnum.SCDeployFromSource:

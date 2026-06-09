@@ -45,7 +45,7 @@ export class TypeMapper {
         this.openTypesFactories = new Map<string, TypeFactory | TypeWithMetadataFactory>([
             ["Option", (...typeParameters: Type[]) => new OptionType(typeParameters[0])],
             ["List", (...typeParameters: Type[]) => new ListType(typeParameters[0])],
-            // For the following open generics, we use a slightly different typing than the one defined by mx-sdk-rs (temporary workaround).
+            // For the following open generics, we use a slightly different typing than the one defined by drt-rs-sdk (temporary workaround).
             ["VarArgs", (...typeParameters: Type[]) => new VariadicType(typeParameters[0])],
             ["MultiResultVec", (...typeParameters: Type[]) => new VariadicType(typeParameters[0])],
             ["variadic", (...typeParameters: Type[]) => new VariadicType(typeParameters[0])],
@@ -104,8 +104,8 @@ export class TypeMapper {
             ["utf-8 string", new StringType()],
             ["TokenIdentifier", new TokenIdentifierType()],
             ["TokenId", new TokenIdentifierType()],
-            ["EgldOrEsdtTokenIdentifier", new TokenIdentifierType()],
-            ["EsdtTokenIdentifier", new TokenIdentifierType()],
+            ["RewaOrDcdtTokenIdentifier", new TokenIdentifierType()],
+            ["DcdtTokenIdentifier", new TokenIdentifierType()],
             ["CodeMetadata", new CodeMetadataType()],
             ["nothing", new NothingType()],
             ["AsyncCall", new NothingType()],

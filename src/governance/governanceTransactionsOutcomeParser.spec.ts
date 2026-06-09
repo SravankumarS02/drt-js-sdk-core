@@ -69,7 +69,7 @@ describe("test multisig transactions outcome parser", function () {
         assert.equal(outcome.length, 1);
         assert.equal(outcome[0].proposalNonce, 1);
         assert.equal(outcome[0].vote, "abstain");
-        assert.equal(outcome[0].voter.toBech32(), "erd1dd6pe58atletdxjmxw2ersjmr37ywwcahckgayhsyv7kjhukaznqx2mzqf");
+        assert.equal(outcome[0].voter.toBech32(), "drt1dd6pe58atletdxjmxw2ersjmr37ywwcahckgayhsyv7kjhukaznqmkvprh");
         assert.equal(outcome[0].userStake, 10000_000000000000000000n);
         assert.equal(outcome[0].votingPower, 10000_000000000000000000n);
     });

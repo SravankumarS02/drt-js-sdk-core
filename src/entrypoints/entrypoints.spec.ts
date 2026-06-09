@@ -8,7 +8,7 @@ import { DevnetEntrypoint } from "./entrypoints";
 describe("TestEntrypoint", function () {
     const entrypoint = new DevnetEntrypoint();
 
-    before(async function () {});
+    before(async function () { });
 
     it("native transfer", async () => {
         const controller = entrypoint.createTransfersController();
@@ -27,7 +27,7 @@ describe("TestEntrypoint", function () {
         );
         assert.equal(
             Buffer.from(transaction.signature).toString("hex"),
-            "69bc7d1777edd0a901e6cf94830475716205c5efdf2fd44d4be31badead59fc8418b34f0aa3b2c80ba14aed5edd30031757d826af58a1abb690a0bee89ba9309",
+            "d63b681a66062e26739c28b4376abe4daa31e19f23e1368d65741625d342cfdda70a37dd52506690b878ecac3e8cec52d309fc479d7aa3a1262127b82e3cbf0d",
         );
     });
 

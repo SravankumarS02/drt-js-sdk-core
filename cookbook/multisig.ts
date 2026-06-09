@@ -5,7 +5,7 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
 (async () => {
     // ### Multisig
 
-    // The sdk contains components to interact with the [Multisig Contract](https://github.com/multiversx/mx-contracts-rs/releases/tag/v0.45.5).
+    // The sdk contains components to interact with the [Multisig Contract](https://github.com/DharitriCore/drt-rs-contracts/releases/tag/v0.45.5).
     // We can deploy a multisig smart contract, add members, propose and execute actions and query the contract.
     // The same as the other components, to interact with a multisig smart contract we can use either the MultisigController or the MultisigTransactionsFactory.
 
@@ -36,7 +36,7 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
             quorum: 2,
             board: [
                 alice.address,
-                Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+                Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             ],
             bytecode: bytecode.valueOf(),
             gasLimit: 100000000n,
@@ -75,7 +75,7 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
             quorum: 2,
             board: [
                 alice.address,
-                Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+                Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             ],
             bytecode: bytecode.valueOf(),
             gasLimit: 100000000n,
@@ -89,7 +89,7 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
     // ```
 
     // #### Propose an action using the controller
-    // We'll propose an action to send some EGLD to Carol. After we sent the proposal, we'll also parse the outcome of the transaction to get the `proposal id`.
+    // We'll propose an action to send some REWA to Carol. After we sent the proposal, we'll also parse the outcome of the transaction to get the `proposal id`.
     // The id can be used later for signing and performing the proposal.
 
     // ```js
@@ -108,14 +108,14 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
         // fetch the nonce of the network // md-as-comment
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllswuedva");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllsnqww0r");
 
         const transaction = await controller.createTransactionForProposeTransferExecute(
             alice,
             alice.getNonceThenIncrement(),
             {
                 multisigContract: contract,
-                to: Address.newFromBech32("erd1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq6mjse8"),
+                to: Address.newFromBech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e"),
                 gasLimit: 10000000n,
                 nativeTokenAmount: 1000000000000000000n,
             },
@@ -147,11 +147,11 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
         const filePath = path.join("../src", "testdata", "testwallets", "alice.pem");
         const alice = await Account.newFromPem(filePath);
 
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllswuedva");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllsnqww0r");
 
         const transaction = await factory.createTransactionForProposeTransferExecute(alice.address, {
             multisigContract: contract,
-            to: Address.newFromBech32("erd1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq6mjse8"),
+            to: Address.newFromBech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e"),
             gasLimit: 10000000n,
             nativeTokenAmount: 1000000000000000000n,
         });
@@ -192,7 +192,7 @@ import { Abi, Account, Address, DevnetEntrypoint, MultisigTransactionsOutcomePar
         const entrypoint = new DevnetEntrypoint();
         const controller = entrypoint.createMultisigController(abi);
 
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllswuedva");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqf8llllsnqww0r");
 
         const boardMembers = await controller.getAllBoardMembers({ multisigAddress: contract.toBech32() });
     }

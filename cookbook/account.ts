@@ -115,15 +115,15 @@ import { Account, DevnetEntrypoint, KeyPair, Mnemonic, UserSecretKey } from "../
 
     // You can manage your account with a Ledger device, allowing you to sign both transactions and messages while keeping your keys secure.
 
-    // Note: **The multiversx-sdk package does not include Ledger support by default. To enable it, install the package with Ledger dependencies**:
+    // Note: **The dharitri-sdk package does not include Ledger support by default. To enable it, install the package with Ledger dependencies**:
     /* // md-ignore
 // ```bash
-npm install @multiversx/sdk-hw-provider
+npm install @dharitricore/sdk-hw-provider
 // ```
 */ // md-ignore
 
     // #### Creating a Ledger Account
-    // This can be done using the dedicated library. You can find more information [here](https://docs.multiversx.com/sdk-and-tools/sdk-js/sdk-js-signing-providers/#the-hardware-wallet-provider).
+    // This can be done using the dedicated library. You can find more information [here](https://docs.dharitri.org/sdk-and-tools/sdk-js/sdk-js-signing-providers/#the-hardware-wallet-provider).
 
     // When signing transactions or messages, the Ledger device will prompt you to confirm the details before proceeding.
 

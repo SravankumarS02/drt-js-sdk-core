@@ -3,7 +3,7 @@ import { DevnetEntrypoint } from "../src"; // md-ignore
 (async () => {
     // ## Overview
 
-    // This guide walks you through handling common tasks using the MultiversX Javascript SDK (v14, latest stable version).
+    // This guide walks you through handling common tasks using the DharitrI Javascript SDK (v14, latest stable version).
 
     // ## Creating an Entrypoint
 
@@ -20,7 +20,7 @@ import { DevnetEntrypoint } from "../src"; // md-ignore
     // If you'd like to connect to a third-party API, you can specify the url parameter:
 
     // ```js
-    const apiEntrypoint = new DevnetEntrypoint({ url: "https://custom-multiversx-devnet-api.com" });
+    const apiEntrypoint = new DevnetEntrypoint({ url: "https://custom-dharitri-devnet-api.com" });
     // ```
 
     // #### Using a Proxy
@@ -28,7 +28,7 @@ import { DevnetEntrypoint } from "../src"; // md-ignore
     // By default, the DevnetEntrypoint uses the standard API. However, you can create a custom entrypoint that interacts with a proxy by specifying the kind parameter:
 
     // ```js
-    const customEntrypoint = new DevnetEntrypoint({ url: "https://devnet-gateway.multiversx.com", kind: "proxy" });
+    const customEntrypoint = new DevnetEntrypoint({ url: "https://devnet-gateway.dharitri.org", kind: "proxy" });
     // ```
 })().catch((e) => {
     console.log({ e });

@@ -54,26 +54,20 @@ describe("test types", () => {
     });
 
     it("should get fully qualified name", () => {
-        assert.equal(new Type("foo").getFullyQualifiedName(), "multiversx:types:foo");
-        assert.equal(new U32Type().getFullyQualifiedName(), "multiversx:types:u32");
+        assert.equal(new Type("foo").getFullyQualifiedName(), "dharitri:types:foo");
+        assert.equal(new U32Type().getFullyQualifiedName(), "dharitri:types:u32");
         assert.equal(
             parser.parse("MultiResultVec<u32>").getFullyQualifiedName(),
-            "multiversx:types:MultiResultVec<multiversx:types:u32>",
+            "dharitri:types:MultiResultVec<dharitri:types:u32>",
         );
-        assert.equal(parser.parse("utf-8 string").getFullyQualifiedName(), "multiversx:types:utf-8 string");
-        assert.equal(
-            parser.parse("Option<u32>").getFullyQualifiedName(),
-            "multiversx:types:Option<multiversx:types:u32>",
-        );
-        assert.equal(new ManagedDecimalType(8).getFullyQualifiedName(), "multiversx:types:ManagedDecimal*8*");
-        assert.equal(new ManagedDecimalType("usize").getFullyQualifiedName(), "multiversx:types:ManagedDecimal*usize*");
-        assert.equal(
-            new ManagedDecimalSignedType(8).getFullyQualifiedName(),
-            "multiversx:types:ManagedDecimalSigned*8*",
-        );
+        assert.equal(parser.parse("utf-8 string").getFullyQualifiedName(), "dharitri:types:utf-8 string");
+        assert.equal(parser.parse("Option<u32>").getFullyQualifiedName(), "dharitri:types:Option<dharitri:types:u32>");
+        assert.equal(new ManagedDecimalType(8).getFullyQualifiedName(), "dharitri:types:ManagedDecimal*8*");
+        assert.equal(new ManagedDecimalType("usize").getFullyQualifiedName(), "dharitri:types:ManagedDecimal*usize*");
+        assert.equal(new ManagedDecimalSignedType(8).getFullyQualifiedName(), "dharitri:types:ManagedDecimalSigned*8*");
         assert.equal(
             new ManagedDecimalSignedType("usize").getFullyQualifiedName(),
-            "multiversx:types:ManagedDecimalSigned*usize*",
+            "dharitri:types:ManagedDecimalSigned*usize*",
         );
     });
 

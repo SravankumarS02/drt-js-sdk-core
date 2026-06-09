@@ -23,7 +23,7 @@ describe("test message", () => {
 
         assert.equal(
             Buffer.from(serialized).toString("hex"),
-            "2162d6271208429e6d3e664139e98ba7c5f1870906fb113e8903b1d3f531004d",
+            "0f6fce3fa6130fc58a25eaff6e157ea1bcb02fbf9773dca514dfaf3cd1e0bdfe",
         );
     });
 
@@ -39,15 +39,15 @@ describe("test message", () => {
 
         assert.equal(
             Buffer.from(message.signature).toString("hex"),
-            "7aff43cd6e3d880a65033bf0a1b16274854fd7dfa9fe5faa7fa9a665ee851afd4c449310f5f1697d348e42d1819eaef69080e33e7652d7393521ed50d7427a0e",
+            "70e7cbd157568ce5250ced7c3e6caf97669c47142cc337b135bbd7a438ae962fa84a426fd1b64fcdcdecc3a2935b7db9b8d35035eaae153126608c2c03602109",
         );
 
         const packedMessage = messageComputer.packMessage(message);
         assert.deepEqual(packedMessage, {
-            address: "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            address: "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
             message: "74657374",
             signature:
-                "7aff43cd6e3d880a65033bf0a1b16274854fd7dfa9fe5faa7fa9a665ee851afd4c449310f5f1697d348e42d1819eaef69080e33e7652d7393521ed50d7427a0e",
+                "70e7cbd157568ce5250ced7c3e6caf97669c47142cc337b135bbd7a438ae962fa84a426fd1b64fcdcdecc3a2935b7db9b8d35035eaae153126608c2c03602109",
             version: 1,
             signer: SDK_JS_SIGNER,
         });
@@ -65,12 +65,12 @@ describe("test message", () => {
 
     it("should unpack legacy message", async () => {
         const legacyMessage = {
-            address: "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            address: "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
             message: "0x7468697320697320612074657374206d657373616765",
             signature:
                 "0xb16847437049986f936dd4a0917c869730cbf29e40a0c0821ca70db33f44758c3d41bcbea446dee70dea13d50942343bb78e74979dc434bbb2b901e0f4fd1809",
             version: 1,
-            signer: "ErdJS",
+            signer: "DrtJS",
         };
 
         const message = messageComputer.unpackMessage(legacyMessage);
@@ -81,12 +81,12 @@ describe("test message", () => {
             "b16847437049986f936dd4a0917c869730cbf29e40a0c0821ca70db33f44758c3d41bcbea446dee70dea13d50942343bb78e74979dc434bbb2b901e0f4fd1809",
         );
         assert.deepEqual(message.version, DEFAULT_MESSAGE_VERSION);
-        assert.equal(message.signer, "ErdJS");
+        assert.equal(message.signer, "DrtJS");
     });
 
     it("should unpack message", async () => {
         const packedMessage = {
-            address: "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            address: "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
             message: "0x7468697320697320612074657374206d657373616765",
             signature:
                 "0xb16847437049986f936dd4a0917c869730cbf29e40a0c0821ca70db33f44758c3d41bcbea446dee70dea13d50942343bb78e74979dc434bbb2b901e0f4fd1809",

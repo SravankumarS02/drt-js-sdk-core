@@ -11,8 +11,8 @@ describe("test governance transactions factory", function () {
     const factory = new GovernanceTransactionsFactory({ config });
 
     const commitHash = "1db734c0315f9ec422b88f679ccfe3e0197b9d67";
-    const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-    const governanceAddress = "erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrlllsrujgla";
+    const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+    const governanceAddress = "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrllls7q9tur";
 
     it("should create transaction for creating new proposal", async function () {
         const expectedData = `proposal@${Buffer.from(commitHash).toString("hex")}@0a@0f`;
@@ -64,7 +64,7 @@ describe("test governance transactions factory", function () {
             "clearEndedProposals@0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8";
 
         const transaction = await factory.createTransactionForClearingEndedProposals(alice, {
-            proposers: [alice, Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx")],
+            proposers: [alice, Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c")],
         });
 
         assert.equal(transaction.sender.toBech32(), alice.toBech32());

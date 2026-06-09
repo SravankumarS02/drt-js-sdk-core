@@ -12,13 +12,13 @@ describe("test governance controller", function () {
     const chainID = "D";
     const controller = new GovernanceController({
         chainID: chainID,
-        networkProvider: new ProxyNetworkProvider("https://devnet-gateway.multiversx.com"),
+        networkProvider: new ProxyNetworkProvider("https://devnet-gateway.dharitri.org"),
     });
 
     const commitHash = "1db734c0315f9ec422b88f679ccfe3e0197b9d67";
-    const governanceAddress = "erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrlllsrujgla";
+    const governanceAddress = "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrllls7q9tur";
 
-    const aliceBech32 = "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th";
+    const aliceBech32 = "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf";
     const secretKey = UserSecretKey.fromString("413f42575f7f26fad3317a778771212fdb80245850981e48b58a4f25e344e8f9");
     const keypair = new KeyPair(secretKey);
     const alice = Account.newFromKeypair(keypair);
@@ -78,7 +78,7 @@ describe("test governance controller", function () {
             {
                 proposers: [
                     alice.address,
-                    Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+                    Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
                 ],
             },
         );

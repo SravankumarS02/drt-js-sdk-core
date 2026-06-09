@@ -17,7 +17,7 @@ import { Account, Address, Message, MessageComputer, Transaction, TransactionCom
         const transaction = new Transaction({
             chainID: "D",
             sender: alice.address,
-            receiver: Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+            receiver: Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             gasLimit: 50000n,
             nonce: 90n,
         });
@@ -37,7 +37,7 @@ import { Account, Address, Message, MessageComputer, Transaction, TransactionCom
         const transaction = new Transaction({
             nonce: 90n,
             sender: publickKey.toAddress(),
-            receiver: Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+            receiver: Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             value: 1000000000000000000n,
             gasLimit: 50000n,
             chainID: "D",
@@ -63,7 +63,7 @@ import { Account, Address, Message, MessageComputer, Transaction, TransactionCom
         const transaction = new Transaction({
             nonce: 90n,
             sender: alice.address,
-            receiver: Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
+            receiver: Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
             value: 1000000000000000000n,
             gasLimit: 50000n,
             chainID: "D",

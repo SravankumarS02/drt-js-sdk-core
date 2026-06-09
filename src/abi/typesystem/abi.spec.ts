@@ -25,14 +25,14 @@ describe("test abi", () => {
         assert.instanceOf(getCounter.output[0].type, I64Type);
 
         // Lottery
-        abi = await loadAbiRegistry("src/testdata/lottery-esdt.abi.json");
+        abi = await loadAbiRegistry("src/testdata/lottery-dcdt.abi.json");
         let start = abi.getEndpoint("start");
         let getStatus = abi.getEndpoint("status");
         let getLotteryInfo = abi.getEndpoint("getLotteryInfo");
 
         // basic-features
         abi = await loadAbiRegistry("src/testdata/basic-features.abi.json");
-        let returnManagedDecimal = abi.getEndpoint("returns_egld_decimal");
+        let returnManagedDecimal = abi.getEndpoint("returns_rewa_decimal");
         let returnsManagedDecimalSigned = abi.getEndpoint("managed_decimal_ln");
         let returnsManagedDecimalVariable = abi.getEndpoint("managed_decimal_addition_var");
 
@@ -85,9 +85,9 @@ describe("test abi", () => {
         let result = bc.decodeTopLevel(buff, performAction.output[0].type);
         assert.deepEqual(
             JSON.stringify(result.valueOf()),
-            `{"name":"SendTransferExecuteEgld","fields":[{"to":{"bech32":"erd1qqqqqqqqqqqqqpgq6qr0w0zzyysklfneh32eqp2cf383zc89d8sstnkl60","pubkey":"00000000000000000500d006f73c4221216fa679bc559005584c4f1160e569e1"},"egld_amount":"42","opt_gas_limit":null,"endpoint_name":{"type":"Buffer","data":[97,100,100]},"arguments":[{"type":"Buffer","data":[7]}]}]}`,
+            `{"name":"SendTransferExecuteRewa","fields":[{"to":{"bech32":"drt1qqqqqqqqqqqqqpgq6qr0w0zzyysklfneh32eqp2cf383zc89d8ssk0pue3","pubkey":"00000000000000000500d006f73c4221216fa679bc559005584c4f1160e569e1"},"rewa_amount":"42","opt_gas_limit":null,"endpoint_name":{"type":"Buffer","data":[97,100,100]},"arguments":[{"type":"Buffer","data":[7]}]}]}`,
         );
-        assert.equal(result.valueOf().name, "SendTransferExecuteEgld");
+        assert.equal(result.valueOf().name, "SendTransferExecuteRewa");
     });
 
     it("should load ABI containing arrayN and nested structs", async () => {
@@ -109,13 +109,13 @@ describe("test abi", () => {
     it("should load ABI when custom types are out of order (a)", async () => {
         const abi = await loadAbiRegistry("src/testdata/custom-types-out-of-order-a.abi.json");
 
-        assert.deepEqual(abi.getStruct("EsdtTokenTransfer").getNamesOfDependencies(), [
-            "EsdtTokenType",
+        assert.deepEqual(abi.getStruct("DcdtTokenTransfer").getNamesOfDependencies(), [
+            "DcdtTokenType",
             "TokenIdentifier",
             "u64",
             "BigUint",
         ]);
-        assert.deepEqual(abi.getEnum("EsdtTokenType").getNamesOfDependencies(), []);
+        assert.deepEqual(abi.getEnum("DcdtTokenType").getNamesOfDependencies(), []);
         assert.deepEqual(abi.getStruct("TypeA").getNamesOfDependencies(), ["TypeB", "TypeC", "u64"]);
         assert.deepEqual(abi.getStruct("TypeB").getNamesOfDependencies(), ["TypeC", "u64"]);
         assert.deepEqual(abi.getStruct("TypeC").getNamesOfDependencies(), ["u64"]);
@@ -124,13 +124,13 @@ describe("test abi", () => {
     it("should load ABI when custom types are out of order (b)", async () => {
         const abi = await loadAbiRegistry("src/testdata/custom-types-out-of-order-b.abi.json");
 
-        assert.deepEqual(abi.getStruct("EsdtTokenTransfer").getNamesOfDependencies(), [
-            "EsdtTokenType",
+        assert.deepEqual(abi.getStruct("DcdtTokenTransfer").getNamesOfDependencies(), [
+            "DcdtTokenType",
             "TokenIdentifier",
             "u64",
             "BigUint",
         ]);
-        assert.deepEqual(abi.getEnum("EsdtTokenType").getNamesOfDependencies(), []);
+        assert.deepEqual(abi.getEnum("DcdtTokenType").getNamesOfDependencies(), []);
         assert.deepEqual(abi.getStruct("TypeA").getNamesOfDependencies(), ["TypeB", "TypeC", "u64"]);
         assert.deepEqual(abi.getStruct("TypeB").getNamesOfDependencies(), ["TypeC", "u64"]);
         assert.deepEqual(abi.getStruct("TypeC").getNamesOfDependencies(), ["u64"]);
@@ -177,13 +177,13 @@ describe("test abi", () => {
     });
 
     it("should load ABI wih events", async () => {
-        const abi = await loadAbiRegistry("src/testdata/esdt-safe.abi.json");
+        const abi = await loadAbiRegistry("src/testdata/dcdt-safe.abi.json");
 
         assert.lengthOf(abi.events, 8);
 
         const depositEvent = abi.getEvent("deposit");
         assert.deepEqual(depositEvent.inputs[0].type, new AddressType());
-        assert.deepEqual(depositEvent.inputs[1].type, new ListType(abi.getCustomType("EsdtTokenPayment")));
+        assert.deepEqual(depositEvent.inputs[1].type, new ListType(abi.getCustomType("DcdtTokenPayment")));
         assert.deepEqual(depositEvent.inputs[2].type, abi.getCustomType("DepositEvent"));
 
         const setStatusEvent = abi.getEvent("setStatusEvent");
@@ -203,7 +203,7 @@ describe("test abi", () => {
     });
 
     it("should load abi with title for endpoint", async () => {
-        const abi = await loadAbiRegistry("src/testdata/lottery-esdt.abi.json");
+        const abi = await loadAbiRegistry("src/testdata/lottery-dcdt.abi.json");
 
         const endpoint = abi.getEndpoint("createLotteryPool");
 

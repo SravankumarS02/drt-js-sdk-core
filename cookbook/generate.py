@@ -37,9 +37,9 @@ TO_REMOVE = [
     console.log({ e });
 });"""]
 
-API_URL = "https://multiversx.github.io/mx-sdk-js-core"
+API_URL = "https://dharitricore.github.io/drt-js-sdk-core"
 API_DEFAULT_VERSION = "v14"
-DOCS_URL = "https://docs.multiversx.com"
+DOCS_URL = "https://docs.dharitri.org"
 
 def main():
     output_file = current_dir / "cookbook.md"

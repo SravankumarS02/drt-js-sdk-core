@@ -20,7 +20,7 @@ import { Account, Address, DevnetEntrypoint, Transaction } from "../src"; // md-
         const entrypoint = new DevnetEntrypoint();
         const walletsPath = path.join("../src", "testdata", "testwallets");
         const bob = await Account.newFromPem(path.join(walletsPath, "bob.pem"));
-        const grace = Address.newFromBech32("erd1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfswy6ede");
+        const grace = Address.newFromBech32("drt1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfsncd6w8");
         const mike = await Account.newFromPem(path.join(walletsPath, "mike.pem"));
 
         // fetch the nonce of the network // md-as-comment

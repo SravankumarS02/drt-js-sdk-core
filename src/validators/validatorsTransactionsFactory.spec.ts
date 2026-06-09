@@ -11,8 +11,8 @@ describe("test validator transactions factory", function () {
     const config = new TransactionsFactoryConfig({ chainID: "D" });
     const validatorsFactory = new ValidatorsTransactionsFactory({ config: config });
     const validatorsPath = `${getTestWalletsPath()}/validators.pem`;
-    const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-    const rewardAddress = Address.newFromBech32("erd1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq6mjse8");
+    const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+    const rewardAddress = Address.newFromBech32("drt1k2s324ww2g0yj38qn2ch2jwctdy8mnfxep94q9arncc6xecg3xaq889n6e");
     const validatorPubkey = new ValidatorPublicKey(
         Buffer.from(
             "e7beaa95b3877f47348df4dd1cb578a4f7cabf7a20bfeefe5cdd263878ff132b765e04fef6f40c93512b666c47ed7719b8902f6c922c04247989b7137e837cc81a62e54712471c97a2ddab75aa9c2f58f813ed4c0fa722bde0ab718bff382208",
@@ -29,7 +29,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender,
-            Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th"),
+            Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 2500000000000000000000n);
@@ -53,7 +53,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 2500000000000000000000n);
@@ -72,7 +72,7 @@ describe("test validator transactions factory", function () {
             amount: 2500000000000000000000n,
         });
 
-        assert.equal(transaction.sender.toBech32(), "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        assert.equal(transaction.sender.toBech32(), "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 2500000000000000000000n);
         assert.equal(transaction.chainID, "D");
@@ -89,7 +89,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -111,7 +111,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -132,7 +132,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender,
-            Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th"),
+            Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.isDefined(transaction.data);
@@ -148,7 +148,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -166,7 +166,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -187,7 +187,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -205,7 +205,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -226,7 +226,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -242,7 +242,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -260,7 +260,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(STAKING_SMART_CONTRACT_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -282,7 +282,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(DELEGATION_MANAGER_SC_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -295,7 +295,7 @@ describe("test validator transactions factory", function () {
 
     it("should create 'Transaction' for merging validator to delegation whitelisting", async function () {
         const delegationContract = Address.newFromBech32(
-            "erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtllllls002zgc",
+            "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx",
         );
 
         const transaction = await validatorsFactory.createTransactionForMergingValidatorToDelegationWithWhitelist(
@@ -307,7 +307,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(DELEGATION_MANAGER_SC_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);
@@ -323,7 +323,7 @@ describe("test validator transactions factory", function () {
 
     it("should create 'Transaction' for merging validator to delegation same owner", async function () {
         const delegationContract = Address.newFromBech32(
-            "erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtllllls002zgc",
+            "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqtlllllsjnaptx",
         );
 
         const transaction = await validatorsFactory.createTransactionForMergingValidatorToDelegationSameOwner(alice, {
@@ -332,7 +332,7 @@ describe("test validator transactions factory", function () {
 
         assert.deepEqual(
             transaction.sender.toBech32(),
-            "erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th",
+            "drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf",
         );
         assert.deepEqual(transaction.receiver, Address.newFromHex(DELEGATION_MANAGER_SC_ADDRESS_HEX));
         assert.equal(transaction.value, 0n);

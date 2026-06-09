@@ -29,8 +29,8 @@ describe("test keypair", () => {
         const transaction = new Transaction({
             nonce: 89n,
             value: 0n,
-            receiver: Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx"),
-            sender: Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th"),
+            receiver: Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c"),
+            sender: Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf"),
             gasPrice: 1000000000n,
             gasLimit: 50000n,
             chainID: "local-testnet",
@@ -46,7 +46,7 @@ describe("test keypair", () => {
         transaction.signature = await keypair.sign(serializedTx);
         assert.equal(
             Buffer.from(transaction.signature).toString("hex"),
-            "b56769014f2bdc5cf9fc4a05356807d71fcf8775c819b0f1b0964625b679c918ffa64862313bfef86f99b38cb84fcdb16fa33ad6eb565276616723405cd8f109",
+            "6d308fe0924019c84d0c5894507435d4eedea1d3f992df5506daed1f2a2ec27e0c8176067c7a71b1680b3fe661c3b726db58fab4c9be52e169d7d4e78fd42a02",
         );
         assert.isTrue(await keypair.verify(serializedTx, transaction.signature));
     });

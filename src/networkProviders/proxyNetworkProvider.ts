@@ -13,7 +13,7 @@ import {
     TransactionStatus,
     TransactionWatcher,
 } from "../core";
-import { ESDT_CONTRACT_ADDRESS_HEX, METACHAIN_ID } from "../core/constants";
+import { DCDT_CONTRACT_ADDRESS_HEX, METACHAIN_ID } from "../core/constants";
 import { AccountAwaiter } from "./accountAwaiter";
 import { AccountOnNetwork, AccountStorage, AccountStorageEntry, GuardianData } from "./accounts";
 import { BlockOnNetwork } from "./blocks";
@@ -212,7 +212,7 @@ export class ProxyNetworkProvider implements INetworkProvider {
     async getTokenOfAccount(address: Address, token: Token): Promise<TokenAmountOnNetwork> {
         let response;
         if (token.nonce === 0n) {
-            response = await this.doGetGeneric(`address/${address.toBech32()}/esdt/${token.identifier}`);
+            response = await this.doGetGeneric(`address/${address.toBech32()}/dcdt/${token.identifier}`);
         } else {
             response = await this.doGetGeneric(
                 `address/${address.toBech32()}/nft/${token.identifier}/nonce/${token.nonce}`,
@@ -222,9 +222,9 @@ export class ProxyNetworkProvider implements INetworkProvider {
     }
 
     async getFungibleTokensOfAccount(address: Address): Promise<TokenAmountOnNetwork[]> {
-        const url = `address/${address.toBech32()}/esdt`;
+        const url = `address/${address.toBech32()}/dcdt`;
         const response = await this.doGetGeneric(url);
-        const responseItems: any[] = Object.values(response.esdts);
+        const responseItems: any[] = Object.values(response.dcdts);
         // Skip NFTs / SFTs.
         const responseItemsFiltered = responseItems.filter((item) => !item.nonce);
         const tokens = responseItemsFiltered.map((item) => TokenAmountOnNetwork.fromProxyResponse(item));
@@ -233,9 +233,9 @@ export class ProxyNetworkProvider implements INetworkProvider {
     }
 
     async getNonFungibleTokensOfAccount(address: Address): Promise<TokenAmountOnNetwork[]> {
-        const url = `address/${address.toBech32()}/esdt`;
+        const url = `address/${address.toBech32()}/dcdt`;
         const response = await this.doGetGeneric(url);
-        const responseItems: any[] = Object.values(response.esdts);
+        const responseItems: any[] = Object.values(response.dcdts);
         // Skip fungible tokens.
         const responseItemsFiltered = responseItems.filter((item) => item.nonce >= 0);
         const tokens = responseItemsFiltered.map((item) => TokenAmountOnNetwork.fromProxyResponse(item));
@@ -272,7 +272,7 @@ export class ProxyNetworkProvider implements INetworkProvider {
         const encodedIdentifier = Buffer.from(identifier);
 
         const queryResponse = await this.queryContract({
-            contract: Address.newFromHex(ESDT_CONTRACT_ADDRESS_HEX),
+            contract: Address.newFromHex(DCDT_CONTRACT_ADDRESS_HEX),
             function: "getTokenProperties",
             arguments: [new Uint8Array(encodedIdentifier)],
         });

@@ -107,7 +107,7 @@ import { Account, Address, DevnetEntrypoint, TokenManagementTransactionsOutcomeP
         // fetch the nonce of the network // md-as-comment
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         const transaction = await controller.createTransactionForSettingSpecialRoleOnFungibleToken(
             alice,
@@ -117,7 +117,7 @@ import { Account, Address, DevnetEntrypoint, TokenManagementTransactionsOutcomeP
                 tokenIdentifier: "TEST-123456",
                 addRoleLocalMint: true,
                 addRoleLocalBurn: true,
-                addRoleESDTTransferRole: true,
+                addRoleDCDTTransferRole: true,
             },
         );
 

@@ -51,7 +51,7 @@ import {
 
     // ```js
     {
-        const api = new ApiNetworkProvider("https://devnet-api.multiversx.com");
+        const api = new ApiNetworkProvider("https://devnet-api.dharitri.org");
         let gasEstimator = new GasLimitEstimator({ networkProvider: api }); // create a gas limit estimator with default multiplier of 1.0
         let gasEstimatorWithMultiplier = new GasLimitEstimator({ networkProvider: api, gasMultiplier: 1.5 }); // create a gas limit estimator with a multiplier of 1.5
 
@@ -64,7 +64,7 @@ import {
     // ```
 
     // ### Token transfers
-    // We can send both native tokens (EGLD) and ESDT tokens using either the controller or the factory.
+    // We can send both native tokens (REWA) and DCDT tokens using either the controller or the factory.
     // #### Native Token Transfers Using the Controller
     // When using the controller, the transaction will be signed because we’ll be working with an Account.
 
@@ -74,7 +74,7 @@ import {
 
         const filePath = path.join("../src", "testdata", "testwallets", "alice.pem");
         const alice = await Account.newFromPem(filePath);
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         // the developer is responsible for managing the nonce
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
@@ -110,7 +110,7 @@ import {
         // the developer is responsible for managing the nonce
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         const transaction = await factory.createTransactionForTransfer(alice.address, {
             receiver: bob,
@@ -137,13 +137,13 @@ import {
 
         const filePath = path.join("../src", "testdata", "testwallets", "alice.pem");
         const alice = await Account.newFromPem(filePath);
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         // the developer is responsible for managing the nonce
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const esdt = new Token({ identifier: "TEST-123456" });
-        const firstTransfer = new TokenTransfer({ token: esdt, amount: 1000000000n });
+        const dcdt = new Token({ identifier: "TEST-123456" });
+        const firstTransfer = new TokenTransfer({ token: dcdt, amount: 1000000000n });
 
         const nft = new Token({ identifier: "NFT-987654", nonce: 10n });
         const secondTransfer = new TokenTransfer({ token: nft, amount: 1n });
@@ -165,7 +165,7 @@ import {
     }
     // ```
 
-    // If you know you'll only send ESDT tokens, the same transaction can be created using createTransactionForEsdtTokenTransfer.
+    // If you know you'll only send DCDT tokens, the same transaction can be created using createTransactionForDcdtTokenTransfer.
 
     // #### Custom token transfers using the factory
     // When using the factory, only the sender's address is required. As a result, the transaction won’t be signed, and the nonce field won’t be set correctly. These aspects should be handled after the transaction is created.
@@ -177,13 +177,13 @@ import {
 
         const filePath = path.join("../src", "testdata", "testwallets", "alice.pem");
         const alice = await Account.newFromPem(filePath);
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         // the developer is responsible for managing the nonce
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const esdt = new Token({ identifier: "TEST-123456" }); // fungible tokens don't have a nonce
-        const firstTransfer = new TokenTransfer({ token: esdt, amount: 1000000000n }); // we set the desired amount we want to send
+        const dcdt = new Token({ identifier: "TEST-123456" }); // fungible tokens don't have a nonce
+        const firstTransfer = new TokenTransfer({ token: dcdt, amount: 1000000000n }); // we set the desired amount we want to send
 
         const nft = new Token({ identifier: "NFT-987654", nonce: 10n });
         const secondTransfer = new TokenTransfer({ token: nft, amount: 1n }); // for NFTs we set the amount to `1`
@@ -206,10 +206,10 @@ import {
     }
     // ```
 
-    // If you know you'll only send ESDT tokens, the same transaction can be created using createTransactionForEsdtTokenTransfer.
+    // If you know you'll only send DCDT tokens, the same transaction can be created using createTransactionForDcdtTokenTransfer.
 
     // #### Sending native and custom tokens
-    // Both native and custom tokens can now be sent. If a `nativeAmount` is provided along with `tokenTransfers`, the native token will be included in the `MultiESDTNFTTransfer` built-in function call.
+    // Both native and custom tokens can now be sent. If a `nativeAmount` is provided along with `tokenTransfers`, the native token will be included in the `MultiDCDTNFTTransfer` built-in function call.
     // We can send both types of tokens using either the `controller` or the `factory`, but for simplicity, we’ll use the controller in this example.
 
     // ```js
@@ -218,13 +218,13 @@ import {
 
         const filePath = path.join("../src", "testdata", "testwallets", "alice.pem");
         const alice = await Account.newFromPem(filePath);
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         // the developer is responsible for managing the nonce
         alice.nonce = await entrypoint.recallAccountNonce(alice.address);
 
-        const esdt = new Token({ identifier: "TEST-123456" });
-        const firstTransfer = new TokenTransfer({ token: esdt, amount: 1000000000n });
+        const dcdt = new Token({ identifier: "TEST-123456" });
+        const firstTransfer = new TokenTransfer({ token: dcdt, amount: 1000000000n });
 
         const nft = new Token({ identifier: "NFT-987654", nonce: 10n });
         const secondTransfer = new TokenTransfer({ token: nft, amount: 1n });

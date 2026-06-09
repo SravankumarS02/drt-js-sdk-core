@@ -75,7 +75,7 @@ describe("test tokens and token computer", async () => {
 
 describe("test token transfer", () => {
     it("should work with custom token type", () => {
-        const identifier = "MEXFARML-28d646";
+        const identifier = "MOAFARML-28d646";
         const nonce = 12345678n;
         const transfer = new TokenTransfer({
             token: new Token({ identifier, nonce }),
@@ -100,7 +100,7 @@ describe("test token transfer", () => {
     it("should create TokenTransfer from native token amount", () => {
         const transfer = TokenTransfer.newFromNativeAmount(1000000000000000000n);
 
-        assert.equal(transfer.token.identifier, "EGLD-000000");
+        assert.equal(transfer.token.identifier, "REWA-000000");
         assert.equal(transfer.token.nonce, 0n);
         assert.equal(transfer.amount, 1000000000000000000n);
     });

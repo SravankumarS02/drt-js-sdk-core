@@ -8,7 +8,7 @@ describe("test delegation transactions outcome parser", () => {
     const parser = new DelegationTransactionsOutcomeParser();
 
     it("should test parseCreateNewDelegationContract ", () => {
-        const contractAddress = Address.newFromBech32("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqy8lllls62y8s5");
+        const contractAddress = Address.newFromBech32("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqy8lllls8knyn2");
         let encodedTopics = [
             "Q8M8GTdWSAAA",
             "Q8M8GTdWSAAA",
@@ -18,7 +18,7 @@ describe("test delegation transactions outcome parser", () => {
         ];
 
         const delegateEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "delegate",
             topics: b64TopicsToBytes(encodedTopics),
         });
@@ -28,7 +28,7 @@ describe("test delegation transactions outcome parser", () => {
             "PDXX6ssamaSgzKpTfvDMCuEJ9B9sK0AiA+Yzv7sHH1w=",
         ];
         const scDeployEvent = new TransactionEvent({
-            address: new Address("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqy8lllls62y8s5"),
+            address: new Address("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqy8lllls8knyn2"),
             identifier: "SCDeploy",
             topics: b64TopicsToBytes(encodedTopics),
         });
@@ -37,19 +37,19 @@ describe("test delegation transactions outcome parser", () => {
 
         encodedTopics = ["b2g6sUl6beG17FCUIkFwCOTGJjoJJi5SjkP2077e6xA="];
         const scResultEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "completedTxEvent",
             topics: b64TopicsToBytes(encodedTopics),
         });
 
         const scResultLog = new TransactionLogs({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             events: [scResultEvent],
         });
 
         const scResult = new SmartContractResult({
-            sender: new Address("erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqylllslmq6y6"),
-            receiver: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            sender: new Address("drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqylllsz8he8y"),
+            receiver: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             data: Buffer.from(
                 "QDZmNmJAMDAwMDAwMDAwMDAwMDAwMDAwMDEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxMGZmZmZmZg==",
                 "base64",
@@ -68,7 +68,7 @@ describe("test delegation transactions outcome parser", () => {
         const encodedTopics = ["AvYUMPsrWw==", "ZmFsc2U=", "AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAABD///8="];
 
         const claimRewardsEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "claimRewards",
             topics: b64TopicsToBytes(encodedTopics),
         });
@@ -93,7 +93,7 @@ describe("test delegation transactions outcome parser", () => {
         ];
 
         const delegateEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "delegate",
             topics: b64TopicsToBytes(encodedTopics),
         });
@@ -111,7 +111,7 @@ describe("test delegation transactions outcome parser", () => {
         const encodedTopics = ["DeC2s6dkAAA=", "DeC2s6dkAAA=", "", "irzOS6k1Z2fS", "ZnVuZA4="];
 
         const undelegateEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "unDelegate",
             topics: b64TopicsToBytes(encodedTopics),
         });
@@ -135,7 +135,7 @@ describe("test delegation transactions outcome parser", () => {
         ];
 
         const redelegateRewardsEvent = new TransactionEvent({
-            address: new Address("erd18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawq553rt2"),
+            address: new Address("drt18s6a06ktr2v6fgxv4ffhauxvptssnaqlds45qgsrucemlwc8rawqfgxqg5"),
             identifier: "delegate",
             topics: b64TopicsToBytes(encodedTopics),
         });

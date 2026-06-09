@@ -10,7 +10,7 @@ export class TestnetEntrypointConfig {
     chainId: string;
 
     constructor({
-        networkProviderUrl = "https://testnet-api.multiversx.com",
+        networkProviderUrl = "https://testnet-api.dharitri.org",
         networkProviderKind = "api",
         chainId = "T",
     }: Partial<EntrypointConfig> = {}) {
@@ -25,7 +25,7 @@ export class DevnetEntrypointConfig {
     networkProviderKind: string;
     chainId: string;
     constructor({
-        networkProviderUrl = "https://devnet-api.multiversx.com",
+        networkProviderUrl = "https://devnet-api.dharitri.org",
         networkProviderKind = "api",
         chainId = "D",
     }: Partial<EntrypointConfig> = {}) {
@@ -41,7 +41,7 @@ export class MainnetEntrypointConfig {
     chainId: string;
 
     constructor({
-        networkProviderUrl = "https://api.multiversx.com",
+        networkProviderUrl = "https://api.dharitri.org",
         networkProviderKind = "api",
         chainId = "1",
     }: Partial<EntrypointConfig> = {}) {

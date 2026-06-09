@@ -12,9 +12,11 @@ export class BLS {
     private static loadBLSModule() {
         if (!BLS.bls) {
             try {
-                BLS.bls = require("@multiversx/sdk-bls-wasm");
+                BLS.bls = require("@dharitricore/sdk-bls-wasm");
             } catch (error) {
-                throw new Error("BLS module is required but not installed. Please install '@multiversx/sdk-bls-wasm'.");
+                throw new Error(
+                    "BLS module is required but not installed. Please install '@dharitricore/sdk-bls-wasm'.",
+                );
             }
         }
     }

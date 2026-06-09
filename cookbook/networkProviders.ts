@@ -11,10 +11,10 @@ import {
 (async () => {
     // ## Calling the Faucet
 
-    // This functionality is not yet available through the entrypoint, but we recommend using the faucet available within the Web Wallet. For more details about the faucet [see this](https://docs.multiversx.com/wallet/web-wallet/#testnet-and-devnet-faucet).
+    // This functionality is not yet available through the entrypoint, but we recommend using the faucet available within the Web Wallet. For more details about the faucet [see this](https://docs.dharitri.org/wallet/web-wallet/#testnet-and-devnet-faucet).
 
-    // - [Testnet Wallet](https://testnet-wallet.multiversx.com/).
-    // - [Devnet Wallet](https://devnet-wallet.multiversx.com/).
+    // - [Testnet Wallet](https://testnet-wallet.dharitri.org/).
+    // - [Devnet Wallet](https://devnet-wallet.dharitri.org/).
 
     // ### Interacting with the network
 
@@ -47,7 +47,7 @@ import {
     {
         // Create a configuration object
         const config = {
-            clientName: "hello-multiversx",
+            clientName: "hello-dharitri",
             requestsOptions: {
                 timeout: 1000, // Timeout in milliseconds // md-as-comment
                 auth: {
@@ -58,13 +58,13 @@ import {
         };
 
         // Instantiate the network provider with the config
-        const api = new ApiNetworkProvider("https://devnet-api.multiversx.com", config);
+        const api = new ApiNetworkProvider("https://devnet-api.dharitri.org", config);
     }
     // ```
 
     // Here you can find a full list of available methods for `class:ApiNetworkProvider`.
 
-    // Both `ApiNetworkProvider` and `ProxyNetworkProvider` implement a common interface, which can be found [here](https://multiversx.github.io/mx-sdk-js-core/v14/interfaces/INetworkProvider.html). This allows them to be used interchangeably.
+    // Both `ApiNetworkProvider` and `ProxyNetworkProvider` implement a common interface, which can be found [here](https://dharitricore.github.io/drt-js-sdk-core/v14/interfaces/INetworkProvider.html). This allows them to be used interchangeably.
 
     // The classes returned by the API expose the most commonly used fields directly for convenience. However, each object also contains a `raw` field that stores the original API response, allowing access to additional fields if needed.
 
@@ -101,7 +101,7 @@ import {
     // #### Fetching a block using the **API**
     // ```js
     {
-        const api = new ApiNetworkProvider("https://devnet-api.multiversx.com");
+        const api = new ApiNetworkProvider("https://devnet-api.dharitri.org");
         const blockHash = "1147e111ce8dd860ae43a0f0d403da193a940bfd30b7d7f600701dd5e02f347a";
         const block = await api.getBlock(blockHash);
     }
@@ -111,7 +111,7 @@ import {
 
     // ```js
     {
-        const api = new ApiNetworkProvider("https://devnet-api.multiversx.com");
+        const api = new ApiNetworkProvider("https://devnet-api.dharitri.org");
         const latestBlock = await api.getLatestBlock();
     }
     // ```
@@ -121,7 +121,7 @@ import {
     // When using the proxy, we have to provide the shard, as well.
     // ```js
     {
-        const proxy = new ProxyNetworkProvider("https://devnet-api.multiversx.com");
+        const proxy = new ProxyNetworkProvider("https://devnet-api.dharitri.org");
         const blockHash = "1147e111ce8dd860ae43a0f0d403da193a940bfd30b7d7f600701dd5e02f347a";
         const block = proxy.getBlock({ blockHash, shard: 1 });
     }
@@ -132,7 +132,7 @@ import {
 
     // ```js
     {
-        const proxy = new ProxyNetworkProvider("https://devnet-api.multiversx.com");
+        const proxy = new ProxyNetworkProvider("https://devnet-api.dharitri.org");
         const latestBlock = proxy.getLatestBlock();
     }
     // ```
@@ -144,7 +144,7 @@ import {
     {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const account = await api.getAccount(alice);
     }
     // ```
@@ -156,7 +156,7 @@ import {
     {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const account = await api.getAccountStorage(alice);
     }
     // ```
@@ -167,14 +167,14 @@ import {
     {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const account = await api.getAccountStorageEntry(alice, "testKey");
     }
     // ```
 
     // ### Waiting for an Account to Meet a Condition
     // There are times when we need to wait for a specific condition to be met before proceeding with an action.
-    // For example, let's say we want to send 7 EGLD from Alice to Bob, but this can only happen once Alice's balance reaches at least 7 EGLD.
+    // For example, let's say we want to send 7 REWA from Alice to Bob, but this can only happen once Alice's balance reaches at least 7 REWA.
     // This approach is useful in scenarios where you're waiting for external funds to be sent to Alice, enabling her to transfer the required amount to another recipient.
 
     // To implement this, we need to define the condition to check each time the account is fetched from the network. We create a function that takes an `AccountOnNetwork` object as an argument and returns a `bool`.
@@ -186,9 +186,9 @@ import {
         const api = entrypoint.createNetworkProvider();
 
         const condition = (account: any) => {
-            return account.balance >= 7000000000000000000n; // 7 EGLD // md-as-comment
+            return account.balance >= 7000000000000000000n; // 7 REWA // md-as-comment
         };
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const account = await api.awaitAccountOnCondition(alice, condition);
     }
     // ```
@@ -203,8 +203,8 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         const transaction = new Transaction({
             sender: alice,
@@ -225,8 +225,8 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-        const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+        const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
         const firstTransaction = new Transaction({
             sender: alice,
@@ -271,8 +271,8 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqpgqccmyzj9sade2495w78h42erfrw7qmqxpd8sss6gmgn");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqpgqccmyzj9sade2495w78h42erfrw7qmqxpd8ssdxlctd");
 
         const transaction = new Transaction({
             sender: alice,
@@ -294,8 +294,8 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-        const contract = Address.newFromBech32("erd1qqqqqqqqqqqqqpgqccmyzj9sade2495w78h42erfrw7qmqxpd8sss6gmgn");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+        const contract = Address.newFromBech32("drt1qqqqqqqqqqqqqpgqccmyzj9sade2495w78h42erfrw7qmqxpd8ssdxlctd");
 
         const nonce = await entrypoint.recallAccountNonce(alice);
 
@@ -367,15 +367,15 @@ import {
     // ```
 
     // ### Fetching a token from an account
-    // We can fetch a specific token (ESDT, MetaESDT, SFT, NFT) from an account by providing the account's address and the token identifier.
+    // We can fetch a specific token (DCDT, MetaDCDT, SFT, NFT) from an account by providing the account's address and the token identifier.
 
     // ```js
     {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-        let token = new Token({ identifier: "TEST-ff155e" }); // ESDT // md-as-comment
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+        let token = new Token({ identifier: "TEST-ff155e" }); // DCDT // md-as-comment
         let tokenOnNetwork = await api.getTokenOfAccount(alice, token);
 
         token = new Token({ identifier: "NFT-987654", nonce: 11n }); // NFT // md-as-comment
@@ -391,7 +391,7 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const fungibleTokens = await api.getFungibleTokensOfAccount(alice);
     }
     // ```
@@ -404,7 +404,7 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const nfts = await api.getNonFungibleTokensOfAccount(alice);
     }
     // ```
@@ -417,10 +417,10 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        // used for ESDT // md-as-comment
+        // used for DCDT // md-as-comment
         const fungibleTokenDefinition = await api.getDefinitionOfFungibleToken("TEST-ff155e");
 
-        // used for METAESDT, SFT, NFT // md-as-comment
+        // used for METADCDT, SFT, NFT // md-as-comment
         const nonFungibleTokenDefinition = await api.getDefinitionOfTokenCollection("NFTEST-ec88b8");
     }
     // ```
@@ -434,7 +434,7 @@ import {
         const api = entrypoint.createNetworkProvider();
 
         const query = new SmartContractQuery({
-            contract: Address.newFromBech32("erd1qqqqqqqqqqqqqpgqqy34h7he2ya6qcagqre7ur7cc65vt0mxrc8qnudkr4"),
+            contract: Address.newFromBech32("drt1qqqqqqqqqqqqqpgqqy34h7he2ya6qcagqre7ur7cc65vt0mxrc8qwq64qt"),
             function: "getSum",
             arguments: [],
         });
@@ -451,7 +451,7 @@ import {
         const entrypoint = new DevnetEntrypoint();
         const api = entrypoint.createNetworkProvider();
 
-        const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
+        const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
         const url = `transactions/${alice.toBech32()}?function=delegate`;
 
         const response = await api.doGetGeneric(url);

@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { Address, ErrBadUsage, Token, TokenTransfer } from "../core";
-import { EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER } from "../core/constants";
+import { REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER } from "../core/constants";
 import { TransactionsFactoryConfig } from "../core/transactionsFactoryConfig";
 import { TransferTransactionsFactory } from "./transferTransactionsFactory";
 
@@ -10,14 +10,14 @@ describe("test transfer transactions factory", function () {
         config: config,
     });
 
-    const alice = Address.newFromBech32("erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th");
-    const bob = Address.newFromBech32("erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx");
+    const alice = Address.newFromBech32("drt1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssey5egf");
+    const bob = Address.newFromBech32("drt1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqlqde3c");
 
     it("should throw error, no token transfer provided", async () => {
         let transfers: any = [];
 
         try {
-            await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+            await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
                 receiver: bob,
                 tokenTransfers: transfers,
             });
@@ -56,11 +56,11 @@ describe("test transfer transactions factory", function () {
         assert.deepEqual(transaction.data, Buffer.from("test data"));
     });
 
-    it("should create 'Transaction' for esdt transfer", async () => {
+    it("should create 'Transaction' for dcdt transfer", async () => {
         const fooToken = new Token({ identifier: "FOO-123456", nonce: 0n });
         const transfer = new TokenTransfer({ token: fooToken, amount: 1000000n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [transfer],
         });
@@ -69,14 +69,14 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.receiver, bob);
         assert.equal(transaction.value.valueOf(), 0n);
         assert.equal(transaction.gasLimit.valueOf(), 410000n);
-        assert.deepEqual(transaction.data.toString(), "ESDTTransfer@464f4f2d313233343536@0f4240");
+        assert.deepEqual(transaction.data.toString(), "DCDTTransfer@464f4f2d313233343536@0f4240");
     });
 
     it("should create 'Transaction' for nft transfer", async () => {
         const nft = new Token({ identifier: "NFT-123456", nonce: 10n });
         const transfer = new TokenTransfer({ token: nft, amount: 1n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [transfer],
         });
@@ -87,7 +87,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1210500n);
         assert.deepEqual(
             transaction.data.toString(),
-            "ESDTNFTTransfer@4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8",
+            "DCDTNFTTransfer@4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8",
         );
     });
 
@@ -95,7 +95,7 @@ describe("test transfer transactions factory", function () {
         const nft = new Token({ identifier: "t0-NFT-123456", nonce: 10n });
         const transfer = new TokenTransfer({ token: nft, amount: 1n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [transfer],
         });
@@ -106,7 +106,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1219500n);
         assert.deepEqual(
             transaction.data.toString(),
-            "ESDTNFTTransfer@74302d4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8",
+            "DCDTNFTTransfer@74302d4e46542d313233343536@0a@01@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8",
         );
     });
 
@@ -117,7 +117,7 @@ describe("test transfer transactions factory", function () {
         const secondNft = new Token({ identifier: "TEST-987654", nonce: 1n });
         const secondTransfer = new TokenTransfer({ token: secondNft, amount: 1n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [firstTransfer, secondTransfer],
         });
@@ -128,7 +128,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1466000n);
         assert.deepEqual(
             transaction.data.toString(),
-            "MultiESDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@4e46542d313233343536@0a@01@544553542d393837363534@01@01",
+            "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@4e46542d313233343536@0a@01@544553542d393837363534@01@01",
         );
 
         const secondTransaction = await transferFactory.createTransactionForTransfer(alice, {
@@ -146,7 +146,7 @@ describe("test transfer transactions factory", function () {
         const secondNft = new Token({ identifier: "t0-TEST-987654", nonce: 1n });
         const secondTransfer = new TokenTransfer({ token: secondNft, amount: 1n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [firstTransfer, secondTransfer],
         });
@@ -157,7 +157,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1484000n);
         assert.deepEqual(
             transaction.data.toString(),
-            "MultiESDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01",
+            "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@02@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01",
         );
 
         const secondTransaction = await transferFactory.createTransactionForTransfer(alice, {
@@ -181,7 +181,7 @@ describe("test transfer transactions factory", function () {
 
             assert.fail("Expected error was not thrown");
         } catch (err) {
-            assert.match((err as Error).message, /Can't set data field when sending esdt tokens/);
+            assert.match((err as Error).message, /Can't set data field when sending dcdt tokens/);
         }
     });
 
@@ -242,7 +242,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1727500n);
         assert.deepEqual(
             transaction.data.toString(),
-            "MultiESDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@4e46542d313233343536@0a@01@544553542d393837363534@01@01@45474c442d303030303030@@0de0b6b3a7640000",
+            "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@4e46542d313233343536@0a@01@544553542d393837363534@01@01@524557412d303030303030@@0de0b6b3a7640000",
         );
     });
 
@@ -265,15 +265,15 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1745500n);
         assert.deepEqual(
             transaction.data.toString(),
-            "MultiESDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01@45474c442d303030303030@@0de0b6b3a7640000",
+            "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@03@74302d4e46542d313233343536@0a@01@74302d544553542d393837363534@01@01@524557412d303030303030@@0de0b6b3a7640000",
         );
     });
 
-    it("should create multi transfer for egld", async () => {
-        const firstNft = new Token({ identifier: EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER });
+    it("should create multi transfer for rewa", async () => {
+        const firstNft = new Token({ identifier: REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER });
         const firstTransfer = new TokenTransfer({ token: firstNft, amount: 1000000000000000000n });
 
-        const transaction = await transferFactory.createTransactionForESDTTokenTransfer(alice, {
+        const transaction = await transferFactory.createTransactionForDCDTTokenTransfer(alice, {
             receiver: bob,
             tokenTransfers: [firstTransfer],
         });
@@ -284,7 +284,7 @@ describe("test transfer transactions factory", function () {
         assert.equal(transaction.gasLimit.valueOf(), 1_243_500n);
         assert.deepEqual(
             transaction.data.toString(),
-            "MultiESDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@01@45474c442d303030303030@@0de0b6b3a7640000",
+            "MultiDCDTNFTTransfer@8049d639e5a6980d1cd2392abcce41029cda74a1563523a202f09641cc2618f8@01@524557412d303030303030@@0de0b6b3a7640000",
         );
     });
 });

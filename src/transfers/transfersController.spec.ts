@@ -9,7 +9,7 @@ describe("test transfers controller", function () {
     const sender = new Account(
         UserSecretKey.fromString("bdf3c95c4b0bcbacd828b148231a10c25f93286befe92077b5d096055fb4e96a"),
     );
-    let mike = Address.newFromBech32("erd1uv40ahysflse896x4ktnh6ecx43u7cmy9wnxnvcyp7deg299a4sq6vaywa");
+    let mike = Address.newFromBech32("drt1uv40ahysflse896x4ktnh6ecx43u7cmy9wnxnvcyp7deg299a4sq8s28dr");
     let grace: Account;
 
     const entrypoint = new DevnetEntrypoint({ kind: "proxy", withGasLimitEstimator: true });
@@ -36,7 +36,7 @@ describe("test transfers controller", function () {
 
         assert.deepEqual(
             transaction.sender,
-            Address.newFromBech32("erd1th3kjm4yjd25lwewe4m5akuqsappqdml8jxuneasnavj7752veysa2sylq"),
+            Address.newFromBech32("drt1th3kjm4yjd25lwewe4m5akuqsappqdml8jxuneasnavj7752veysqk88u7"),
         );
         assert.deepEqual(transaction.receiver, mike);
         assert.equal(transaction.value, 0n);
@@ -44,6 +44,6 @@ describe("test transfers controller", function () {
         assert.equal(transaction.version, 2);
         assert.equal(transaction.gasLimit, 357001n);
         assert.equal(transaction.options, 0);
-        assert.deepEqual(Buffer.from(transaction.data).toString(), "ESDTTransfer@555344432d333530633465@07");
+        assert.deepEqual(Buffer.from(transaction.data).toString(), "DCDTTransfer@555344432d333530633465@07");
     });
 });

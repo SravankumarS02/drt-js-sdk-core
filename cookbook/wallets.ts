@@ -99,7 +99,7 @@ import { KeyPair, Mnemonic, UserPem, UserWallet } from "../src"; // md-ignore
 
         // loads the mnemonic and derives the a secret key; default index = 0 // md-as-comment
         let secretKey = UserWallet.loadSecretKey(filePath, "password");
-        let address = secretKey.generatePublicKey().toAddress("erd");
+        let address = secretKey.generatePublicKey().toAddress("drt");
 
         console.log("Secret key: ", secretKey.hex());
         console.log("Address: ", address.toBech32());
@@ -120,7 +120,7 @@ import { KeyPair, Mnemonic, UserPem, UserWallet } from "../src"; // md-ignore
         const filePath = path.join("../src", "testdata", "testwallets", "walletWithSecretKey.json");
 
         let secretKey = UserWallet.loadSecretKey(filePath, "password");
-        let address = secretKey.generatePublicKey().toAddress("erd");
+        let address = secretKey.generatePublicKey().toAddress("drt");
 
         console.log("Secret key: ", secretKey.hex());
         console.log("Address: ", address.toBech32());

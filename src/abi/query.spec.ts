@@ -10,7 +10,7 @@ describe("test smart contract queries", () => {
     it("should getEncodedArguments()", async () => {
         let query = new Query({
             func: new ContractFunction("foo"),
-            address: new Address("erd1qqqqqqqqqqqqqpgq3ytm9m8dpeud35v3us20vsafp77smqghd8ss4jtm0q"),
+            address: new Address("drt1qqqqqqqqqqqqqpgq3ytm9m8dpeud35v3us20vsafp77smqghd8ssgwucv7"),
             args: [
                 new U32Value(100),
                 BytesValue.fromUTF8("!"),

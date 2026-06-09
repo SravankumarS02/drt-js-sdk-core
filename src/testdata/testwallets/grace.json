@@ -3,7 +3,7 @@
     "kind": "secretKey",
     "id": "9aff338f-f504-403c-86cd-5e623bc81c42",
     "address": "1e8a8b6b49de5b7be10aaa158a5a6a4abb4b56cc08f524bb5e6cd5f211ad3e13",
-    "bech32": "erd1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfswy6ede",
+    "bech32": "drt1r69gk66fmedhhcg24g2c5kn2f2a5k4kvpr6jfw67dn2lyydd8cfsncd6w8",
     "crypto": {
         "ciphertext": "b8f4fe8790a980fb78e5b126c52e81009910101210420da1da0d558313a45eb8803b57825bc19a2a8b92d7af147f97a0bf261ce152bc61cccd6e34df4aa9ab09",
         "cipherparams": {

@@ -48,8 +48,8 @@ export function isOnBrowserTests() {
     return isOnTests;
 }
 
-export function createAccountBalance(egld: number): bigint {
-    return BigInt(egld.toString() + "0".repeat(18));
+export function createAccountBalance(rewa: number): bigint {
+    return BigInt(rewa.toString() + "0".repeat(18));
 }
 
 export function b64TopicsToBytes(topics: string[]): Uint8Array[] {

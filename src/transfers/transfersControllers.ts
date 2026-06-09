@@ -31,12 +31,12 @@ export class TransfersController extends BaseController {
         return transaction;
     }
 
-    async createTransactionForEsdtTokenTransfer(
+    async createTransactionForDcdtTokenTransfer(
         sender: IAccount,
         nonce: bigint,
         options: resources.CustomTokenTransferInput & BaseControllerInput,
     ): Promise<Transaction> {
-        const transaction = await this.factory.createTransactionForESDTTokenTransfer(sender.address, options);
+        const transaction = await this.factory.createTransactionForDCDTTokenTransfer(sender.address, options);
 
         await this.setupAndSignTransaction(transaction, options, nonce, sender);
 

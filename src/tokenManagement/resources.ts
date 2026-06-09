@@ -23,7 +23,7 @@ export type FungibleSpecialRoleInput = {
     tokenIdentifier: string;
     addRoleLocalMint: boolean;
     addRoleLocalBurn: boolean;
-    addRoleESDTTransferRole: boolean;
+    addRoleDCDTTransferRole: boolean;
 };
 export type SemiFungibleSpecialRoleInput = {
     user: Address;
@@ -31,11 +31,11 @@ export type SemiFungibleSpecialRoleInput = {
     addRoleNFTCreate: boolean;
     addRoleNFTBurn: boolean;
     addRoleNFTAddQuantity: boolean;
-    addRoleESDTTransferRole: boolean;
+    addRoleDCDTTransferRole: boolean;
     addRoleNFTUpdate?: boolean;
-    addRoleESDTModifyRoyalties?: boolean;
-    addRoleESDTSetNewUri?: boolean;
-    addRoleESDTModifyCreator?: boolean;
+    addRoleDCDTModifyRoyalties?: boolean;
+    addRoleDCDTSetNewUri?: boolean;
+    addRoleDCDTModifyCreator?: boolean;
     addRoleNFTRecreate?: boolean;
 };
 
@@ -46,11 +46,11 @@ export type SpecialRoleInput = {
     addRoleNFTBurn: boolean;
     addRoleNFTUpdateAttributes: boolean;
     addRoleNFTAddURI: boolean;
-    addRoleESDTTransferRole: boolean;
-    addRoleESDTModifyCreator?: boolean;
+    addRoleDCDTTransferRole: boolean;
+    addRoleDCDTModifyCreator?: boolean;
     addRoleNFTRecreate?: boolean;
-    addRoleESDTSetNewURI?: boolean;
-    addRoleESDTModifyRoyalties?: boolean;
+    addRoleDCDTSetNewURI?: boolean;
+    addRoleDCDTModifyRoyalties?: boolean;
 };
 
 export type UnsetFungibleSpecialRoleInput = {
@@ -58,18 +58,18 @@ export type UnsetFungibleSpecialRoleInput = {
     tokenIdentifier: string;
     removeRoleLocalMint: boolean;
     removeRoleLocalBurn: boolean;
-    removeRoleESDTTransferRole: boolean;
+    removeRoleDCDTTransferRole: boolean;
 };
 export type UnsetSemiFungibleSpecialRoleInput = {
     user: Address;
     tokenIdentifier: string;
     removeRoleNFTBurn: boolean;
     removeRoleNFTAddQuantity: boolean;
-    removeRoleESDTTransferRole: boolean;
+    removeRoleDCDTTransferRole: boolean;
     removeRoleNFTUpdate?: boolean;
-    removeRoleESDTModifyRoyalties?: boolean;
-    removeRoleESDTSetNewUri?: boolean;
-    removeRoleESDTModifyCreator?: boolean;
+    removeRoleDCDTModifyRoyalties?: boolean;
+    removeRoleDCDTSetNewUri?: boolean;
+    removeRoleDCDTModifyCreator?: boolean;
     removeRoleNFTRecreate?: boolean;
 };
 
@@ -79,11 +79,11 @@ export type UnsetSpecialRoleInput = {
     removeRoleNFTBurn: boolean;
     removeRoleNFTUpdateAttributes: boolean;
     removeRoleNFTAddURI: boolean;
-    removeRoleESDTTransferRole: boolean;
-    removeRoleESDTModifyCreator?: boolean;
+    removeRoleDCDTTransferRole: boolean;
+    removeRoleDCDTModifyCreator?: boolean;
     removeRoleNFTRecreate?: boolean;
-    removeRoleESDTSetNewURI?: boolean;
-    removeRoleESDTModifyRoyalties?: boolean;
+    removeRoleDCDTSetNewURI?: boolean;
+    removeRoleDCDTModifyRoyalties?: boolean;
 };
 
 export type MintInput = {
@@ -116,7 +116,7 @@ export type RegisterRolesInput = {
     numDecimals: bigint;
 };
 
-export type RegisterMetaESDTInput = {
+export type RegisterMetaDCDTInput = {
     tokenName: string;
     tokenTicker: string;
     numDecimals: bigint;
@@ -160,7 +160,7 @@ export type MintNftOutput = {
     initialQuantity: bigint;
 };
 
-export type EsdtOutput = { tokenIdentifier: string };
+export type DcdtOutput = { tokenIdentifier: string };
 export type ModifyRoyaltiesOutput = { tokenIdentifier: string; nonce: bigint; royalties: bigint };
 export type SetNewUrisOutput = { tokenIdentifier: string; nonce: bigint; uri: string };
 export type ModifyingCreatorOutput = { tokenIdentifier: string; nonce: bigint };

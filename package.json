@@ -1,16 +1,16 @@
 {
-  "name": "@multiversx/sdk-core",
+  "name": "@dharitricore/sdk-core",
   "version": "15.4.1",
-  "description": "MultiversX SDK for JavaScript and TypeScript",
-  "author": "MultiversX",
-  "homepage": "https://multiversx.com",
+  "description": "DharitrI SDK for JavaScript and TypeScript",
+  "author": "DharitrI",
+  "homepage": "https://dharitri.org",
   "license": "MIT",
-  "repository": "github:multiversx/mx-sdk-js-core",
+  "repository": "github:dharitricore/drt-js-sdk-core",
   "bugs": {
-    "url": "https://github.com/multiversx/mx-sdk-js-core/issues"
+    "url": "https://github.com/DharitriCore/drt-js-sdk-core/issues"
   },
   "keywords": [
-    "multiversx",
+    "dharitri",
     "sdk",
     "blockchain"
   ],
@@ -27,7 +27,7 @@
     "tests-testnet": "mocha $(find . -name '*.test.net.spec.ts')",
     "tests-devnet": "mocha $(find . -name '*.dev.net.spec.ts')",
     "tests-mainnet": "mocha $(find . -name '*.main.net.spec.ts')",
-    "compile-browser": "tsc -p tsconfig.build.json && browserify out/index.js -o out-browser/sdk-core.js --standalone multiversxSdkCore -p esmify",
+    "compile-browser": "tsc -p tsconfig.build.json && browserify out/index.js -o out-browser/sdk-core.js --standalone dharitriSdkCore -p esmify",
     "compile": "tsc -p tsconfig.build.json",
     "compile-proto": "npx pbjs -t static-module -w default -o src/proto/compiled.js src/proto/transaction.proto",
     "browser-tests": "make clean && make browser-tests && http-server --port=9876 -o browser-tests/index.html",
@@ -37,7 +37,7 @@
     "prepare": "npm run compile"
   },
   "dependencies": {
-    "@multiversx/sdk-transaction-decoder": "1.0.2",
+    "@terradharitri/sdk-transaction-decoder": "0.0.7",
     "@noble/ed25519": "1.7.3",
     "@noble/hashes": "1.3.0",
     "bech32": "1.1.4",
@@ -77,7 +77,7 @@
     "protobufjs": "^7.5.6"
   },
   "optionalDependencies": {
-    "@multiversx/sdk-bls-wasm": "0.3.5",
+    "@dharitricore/sdk-bls-wasm": "0.3.5",
     "axios": "^1.15.2",
     "bip39": "3.1.0"
   }

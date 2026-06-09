@@ -1,11 +1,11 @@
-import { EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER } from "./constants";
+import { REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER } from "./constants";
 import { ErrInvalidTokenIdentifier } from "./errors";
 import { numberToPaddedHex } from "./utils.codec";
 export type TokenType = "NFT" | "SFT" | "META" | "FNG";
 
 export class Token {
     /**
-     * E.g. "FOO-abcdef", "EGLD-000000".
+     * E.g. "FOO-abcdef", "REWA-000000".
      */
     readonly identifier: string;
     readonly nonce: bigint;
@@ -30,7 +30,7 @@ export class TokenTransfer {
      * @returns @TokenTransfer from native token
      */
     static newFromNativeAmount(amount: bigint): TokenTransfer {
-        const token = new Token({ identifier: EGLD_IDENTIFIER_FOR_MULTI_ESDTNFT_TRANSFER });
+        const token = new Token({ identifier: REWA_IDENTIFIER_FOR_MULTI_DCDTNFT_TRANSFER });
         return new TokenTransfer({ token, amount });
     }
 
@@ -140,7 +140,7 @@ export class TokenComputer {
     private checkIfExtendedIdentifierWasProvided(prefix: string | null, tokenParts: string[]): void {
         //  this is for the identifiers of fungible tokens
         const MIN_EXTENDED_IDENTIFIER_LENGTH_IF_SPLITTED = 2;
-        //  this is for the identifiers of nft, sft and meta-esdt
+        //  this is for the identifiers of nft, sft and meta-dcdt
         const MAX_EXTENDED_IDENTIFIER_LENGTH_IF_SPLITTED = prefix ? 4 : 3;
 
         if (
